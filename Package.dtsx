@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="185"
-  DTS:VersionGUID="{3C6388F4-62ED-4FE1-A78C-F2D49683B9BB}">
+  DTS:VersionBuild="188"
+  DTS:VersionGUID="{7796F82C-0F3A-4853-A2D4-8115A54D394F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -74,18 +74,6 @@
           DTS:ConnectRetryCount="1"
           DTS:ConnectRetryInterval="5"
           DTS:ConnectionString="Data Source=DELL-CARITO\MSSQLSERVER01;Initial Catalog=TDC;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{C7F59D9C-934C-446A-B7EE-D09762A12448}DELL-CARITO\MSSQLSERVER01.TDC;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DELL-CARITO\MSSQLSERVER01.TDC 1]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{E421C148-BEF4-42D8-984C-ACEB30730ADE}"
-      DTS:ObjectName="DELL-CARITO\MSSQLSERVER01.TDC 1">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="1"
-          DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=DELL-CARITO\MSSQLSERVER01;Initial Catalog=TDC;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -302,6 +290,7 @@
       DTS:refId="Package\Armar fact"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Contenedor de secuencias"
+      DTS:Disabled="True"
       DTS:DTSID="{861F22C9-19FE-49E1-BD44-93B300F12FF3}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -2556,6 +2545,7 @@ ORDER BY int_Billing.BILLING_ID;</property>
       DTS:refId="Package\Borrar int"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
+      DTS:Disabled="True"
       DTS:DTSID="{2849689C-EFB1-4063-851F-6C95E1116C81}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -2573,6 +2563,7 @@ ORDER BY int_Billing.BILLING_ID;</property>
       DTS:refId="Package\Borrar stg"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
+      DTS:Disabled="True"
       DTS:DTSID="{7CDFA7D9-2185-47D2-9C16-51AB84FCF711}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -2590,6 +2581,7 @@ ORDER BY int_Billing.BILLING_ID;</property>
       DTS:refId="Package\Cargar int"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Contenedor de secuencias"
+      DTS:Disabled="True"
       DTS:DTSID="{FF895DAC-66B1-427C-B862-350E2B9A5D42}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -6100,6 +6092,7 @@ WHERE date IS NOT NULL;</property>
       DTS:refId="Package\Cargar stg"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Contenedor de secuencias"
+      DTS:Disabled="True"
       DTS:DTSID="{9B787466-0CAA-456D-869D-DFB97A971E61}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -11846,6 +11839,10 @@ WHERE date IS NOT NULL;</property>
                       dataType="wstr"
                       length="18"
                       name="grupo_etario" />
+                    <externalMetadataColumn
+                      refId="Package\Dims a DW\DW Billing.Inputs[Entrada de destino de OLE DB].ExternalColumns[KEY_BILLING]"
+                      dataType="i4"
+                      name="KEY_BILLING" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -12772,7 +12769,9 @@ WHERE date IS NOT NULL;</property>
                   dataType="System.String"
                   description="Comando SQL para ejecutar."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT BILLING_ID, date, customer_id, employee_id,
+product_id, quantity, region, unit_price, discount_perc, grupo_etario
+FROM int_Billing_final;</property>
                 <property
                   dataType="System.String"
                   description="Variable que contiene el comando SQL para ejecutar."
@@ -12789,7 +12788,7 @@ WHERE date IS NOT NULL;</property>
                   dataType="System.Int32"
                   description="Especifica el modo utilizado para obtener acceso a la base de datos."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">2</property>
                 <property
                   dataType="System.String"
                   description="Asignaciones entre los parámetros del comando SQL y las variables."
@@ -12891,15 +12890,6 @@ WHERE date IS NOT NULL;</property>
                       name="discount_perc"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Dims a DW\int_Billing_Final.Outputs[Salida de origen de OLE DB].Columns[edad_en_compra]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversión"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Dims a DW\int_Billing_Final.Outputs[Salida de origen de OLE DB].ExternalColumns[edad_en_compra]"
-                      lineageId="Package\Dims a DW\int_Billing_Final.Outputs[Salida de origen de OLE DB].Columns[edad_en_compra]"
-                      name="edad_en_compra"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\Dims a DW\int_Billing_Final.Outputs[Salida de origen de OLE DB].Columns[grupo_etario]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversión"
@@ -12949,10 +12939,6 @@ WHERE date IS NOT NULL;</property>
                       refId="Package\Dims a DW\int_Billing_Final.Outputs[Salida de origen de OLE DB].ExternalColumns[discount_perc]"
                       dataType="i4"
                       name="discount_perc" />
-                    <externalMetadataColumn
-                      refId="Package\Dims a DW\int_Billing_Final.Outputs[Salida de origen de OLE DB].ExternalColumns[edad_en_compra]"
-                      dataType="i4"
-                      name="edad_en_compra" />
                     <externalMetadataColumn
                       refId="Package\Dims a DW\int_Billing_Final.Outputs[Salida de origen de OLE DB].ExternalColumns[grupo_etario]"
                       dataType="wstr"
@@ -13011,11 +12997,6 @@ WHERE date IS NOT NULL;</property>
                       dataType="i4"
                       lineageId="Package\Dims a DW\int_Billing_Final.Outputs[Salida de error de origen de OLE DB].Columns[discount_perc]"
                       name="discount_perc" />
-                    <outputColumn
-                      refId="Package\Dims a DW\int_Billing_Final.Outputs[Salida de error de origen de OLE DB].Columns[edad_en_compra]"
-                      dataType="i4"
-                      lineageId="Package\Dims a DW\int_Billing_Final.Outputs[Salida de error de origen de OLE DB].Columns[edad_en_compra]"
-                      name="edad_en_compra" />
                     <outputColumn
                       refId="Package\Dims a DW\int_Billing_Final.Outputs[Salida de error de origen de OLE DB].Columns[grupo_etario]"
                       dataType="wstr"
@@ -15292,6 +15273,18 @@ WHERE date IS NOT NULL;</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="153,42"
+          Id="Package\Dims a DW\DW Customers"
+          TopLeft="21.5,83.5" />
+        <NodeLayout
+          Size="135,42"
+          Id="Package\Dims a DW\DW Region"
+          TopLeft="670.5,91.5" />
+        <NodeLayout
+          Size="135,42"
+          Id="Package\Dims a DW\dim Region"
+          TopLeft="669.5,18.5" />
+        <NodeLayout
           Size="125,42"
           Id="Package\Dims a DW\DW Time"
           TopLeft="525.5,87.5" />
@@ -15300,9 +15293,13 @@ WHERE date IS NOT NULL;</property>
           Id="Package\Dims a DW\dim Time"
           TopLeft="524.5,17.5" />
         <NodeLayout
-          Size="153,42"
-          Id="Package\Dims a DW\DW Customers"
-          TopLeft="21.5,83.5" />
+          Size="130,42"
+          Id="Package\Dims a DW\DW Billing"
+          TopLeft="39.5,229.5" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Dims a DW\int_Billing_Final"
+          TopLeft="26.5,147.5" />
         <NodeLayout
           Size="155,42"
           Id="Package\Dims a DW\DW Employees"
@@ -15323,14 +15320,28 @@ WHERE date IS NOT NULL;</property>
           Size="143,42"
           Id="Package\Dims a DW\dim Products"
           TopLeft="362.5,16.5" />
-        <NodeLayout
-          Size="135,42"
-          Id="Package\Dims a DW\DW Region"
-          TopLeft="670.5,91.5" />
-        <NodeLayout
-          Size="135,42"
-          Id="Package\Dims a DW\dim Region"
-          TopLeft="669.5,18.5" />
+        <EdgeLayout
+          Id="Package\Dims a DW.Paths[Salida de origen de OLE DB5]"
+          TopLeft="104.5,189.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40"
+              Start="0,0"
+              End="0,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Dims a DW.Paths[Salida de origen de OLE DB4]"
           TopLeft="737.5,60.5">
@@ -15441,106 +15452,11 @@ WHERE date IS NOT NULL;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="156,42"
-          Id="Package\Dims a DW\int_Billing_Final"
-          TopLeft="26.5,147.5" />
-        <NodeLayout
-          Size="130,42"
-          Id="Package\Dims a DW\DW Billing"
-          TopLeft="39.5,229.5" />
-        <EdgeLayout
-          Id="Package\Dims a DW.Paths[Salida de origen de OLE DB5]"
-          TopLeft="104.5,189.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,40"
-              Start="0,0"
-              End="0,32.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,32.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\dim Customers">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\DW Region">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Dims a DW\dim Region">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\DW Customers">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\DW Employees">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\dim Time">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -15566,7 +15482,7 @@ WHERE date IS NOT NULL;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\dim Products">
+    design-time-name="Package\Dims a DW\int_Billing_Final">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -15579,7 +15495,59 @@ WHERE date IS NOT NULL;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\dim Employees">
+    design-time-name="Package\Dims a DW\DW Customers">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\dim Time">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\DW Billing">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\DW Employees">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\dim Products">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -15605,7 +15573,7 @@ WHERE date IS NOT NULL;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\int_Billing_Final">
+    design-time-name="Package\Dims a DW\dim Employees">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -15618,7 +15586,20 @@ WHERE date IS NOT NULL;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\DW Billing">
+    design-time-name="Package\Dims a DW\dim Customers">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\DW Region">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
