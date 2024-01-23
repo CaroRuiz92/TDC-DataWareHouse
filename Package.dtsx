@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="188"
-  DTS:VersionGUID="{7796F82C-0F3A-4853-A2D4-8115A54D394F}">
+  DTS:VersionBuild="199"
+  DTS:VersionGUID="{C9C6C553-8C6F-4906-BBFA-6C66641CCAF1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -290,7 +290,6 @@
       DTS:refId="Package\Armar fact"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Contenedor de secuencias"
-      DTS:Disabled="True"
       DTS:DTSID="{861F22C9-19FE-49E1-BD44-93B300F12FF3}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -432,7 +431,7 @@ B.discount_perc,
 B.customer_id,
 C.FULL_NAME, C.BIRTH_DAY, convert(date,B.date) as 'Fecha_Compra'
 FROM int_Billing_con_precios_y_desc B
-INNER JOIN int_dim_Clientes C
+FULL OUTER JOIN int_dim_Clientes C
 ON B.customer_id = C.CUSTOMER_ID;</property>
                     <property
                       dataType="System.String"
@@ -734,7 +733,7 @@ ON B.customer_id = C.CUSTOMER_ID;</property>
                     <property
                       dataType="System.String"
                       description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                      name="OpenRowset">[Int_Billing_con_prec_des_gret]</property>
+                      name="OpenRowset">[int_Billing_prefinal]</property>
                     <property
                       dataType="System.String"
                       description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
@@ -1267,7 +1266,7 @@ ON B.customer_id = C.CUSTOMER_ID;</property>
                     <property
                       dataType="System.String"
                       description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                      name="OpenRowset">[dbo].[Int_Billing_con_prec_des_gret]</property>
+                      name="OpenRowset">[dbo].[int_Billing_prefinal]</property>
                     <property
                       dataType="System.String"
                       description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
@@ -2545,7 +2544,6 @@ ORDER BY int_Billing.BILLING_ID;</property>
       DTS:refId="Package\Borrar int"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
-      DTS:Disabled="True"
       DTS:DTSID="{2849689C-EFB1-4063-851F-6C95E1116C81}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -2556,14 +2554,13 @@ ORDER BY int_Billing.BILLING_ID;</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{069C93FD-D2DB-4777-B8F8-EBE42E92A053}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE [dbo].[int_Billing]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_con_precios]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_con_precios_y_desc]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Clientes]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Empleados]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Productos]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_time]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Discount]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Prices]&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [dbo].[int_Billing]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_con_precios]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_con_precios_y_desc]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_final]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_prefinal]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Clientes]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Empleados]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Productos]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_time]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Discount]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Prices]&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Borrar stg"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
-      DTS:Disabled="True"
       DTS:DTSID="{7CDFA7D9-2185-47D2-9C16-51AB84FCF711}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -2581,7 +2578,6 @@ ORDER BY int_Billing.BILLING_ID;</property>
       DTS:refId="Package\Cargar int"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Contenedor de secuencias"
-      DTS:Disabled="True"
       DTS:DTSID="{FF895DAC-66B1-427C-B862-350E2B9A5D42}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -6092,7 +6088,6 @@ WHERE date IS NOT NULL;</property>
       DTS:refId="Package\Cargar stg"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Contenedor de secuencias"
-      DTS:Disabled="True"
       DTS:DTSID="{9B787466-0CAA-456D-869D-DFB97A971E61}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -13247,7 +13242,7 @@ FROM int_Billing_final;</property>
         <NodeLayout
           Size="157,42"
           Id="Package\Borrar dims DW"
-          TopLeft="586.5,443.5" />
+          TopLeft="586.5,437.5" />
         <NodeLayout
           Size="124,42"
           Id="Package\Borrar int"
@@ -13393,8 +13388,8 @@ FROM int_Billing_final;</property>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="247,435"
-          Size="247,478"
+          PanelSize="247,399"
+          Size="247,442"
           Id="Package\Cargar int"
           TopLeft="270.5,113.5" />
         <NodeLayout
@@ -13515,7 +13510,7 @@ FROM int_Billing_final;</property>
         <NodeLayout
           Size="134,42"
           Id="Package\Dims a DW"
-          TopLeft="595.5,514.927272727272" />
+          TopLeft="596.5,510.927272727272" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
           TopLeft="74.25,67.5">
@@ -13596,13 +13591,13 @@ FROM int_Billing_final;</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 3]"
-          TopLeft="517.5,352.5">
+          TopLeft="517.5,334.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="28,-93"
+              EndConnector="28,-75"
               Start="0,0"
-              End="20.5,-93">
+              End="20.5,-75">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -13613,13 +13608,13 @@ FROM int_Billing_final;</property>
                     Point2="14,0"
                     Point3="14,-4" />
                   <mssgle:LineSegment
-                    End="14,-89" />
+                    End="14,-71" />
                   <mssgle:CubicBezierSegment
-                    Point1="14,-89"
-                    Point2="14,-93"
-                    Point3="18,-93" />
+                    Point1="14,-71"
+                    Point2="14,-75"
+                    Point3="18,-75" />
                   <mssgle:LineSegment
-                    End="20.5,-93" />
+                    End="20.5,-75" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -13634,14 +13629,14 @@ FROM int_Billing_final;</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,40"
+              EndConnector="0,34"
               Start="0,0"
-              End="0,32.5">
+              End="0,26.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,32.5" />
+                    End="0,26.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -13652,18 +13647,18 @@ FROM int_Billing_final;</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 5]"
-          TopLeft="663.75,485.5">
+          TopLeft="664.25,479.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,29.427272727272"
+              EndConnector="0,31.427272727272"
               Start="0,0"
-              End="0,21.927272727272">
+              End="0,23.927272727272">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,21.927272727272" />
+                    End="0,23.927272727272" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -13679,7 +13674,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\Atrib - GrupoEtario">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="124,42"
           Id="Package\Armar fact\Atrib - GrupoEtario\Int Billing"
@@ -13691,7 +13686,7 @@ FROM int_Billing_final;</property>
         <NodeLayout
           Size="169,42"
           Id="Package\Armar fact\Atrib - GrupoEtario\Int_Billing_prefinal"
-          TopLeft="388.5,196.5" />
+          TopLeft="341.5,201.5" />
         <EdgeLayout
           Id="Package\Armar fact\Atrib - GrupoEtario.Paths[Salida de origen de OLE DB]"
           TopLeft="74.5,94.5">
@@ -13723,9 +13718,7 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -13734,34 +13727,32 @@ FROM int_Billing_final;</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="253.5,31"
+              EndConnector="206.5,36"
               Start="0,0"
-              End="253.5,23.5">
+              End="206.5,28.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,11.5" />
+                    End="0,14" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,11.5"
-                    Point2="0,15.5"
-                    Point3="4,15.5" />
+                    Point1="0,14"
+                    Point2="0,18"
+                    Point3="4,18" />
                   <mssgle:LineSegment
-                    End="249.5,15.5" />
+                    End="202.5,18" />
                   <mssgle:CubicBezierSegment
-                    Point1="249.5,15.5"
-                    Point2="253.5,15.5"
-                    Point3="253.5,19.5" />
+                    Point1="202.5,18"
+                    Point2="206.5,18"
+                    Point3="206.5,22" />
                   <mssgle:LineSegment
-                    End="253.5,23.5" />
+                    End="206.5,28.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13797,7 +13788,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\GrupoEtario - Final">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="196,42"
           Id="Package\Armar fact\GrupoEtario - Final\GrupoEtario sin nombre"
@@ -13805,7 +13796,7 @@ FROM int_Billing_final;</property>
         <NodeLayout
           Size="199,42"
           Id="Package\Armar fact\GrupoEtario - Final\GrupoEtario con nombre"
-          TopLeft="319.5,200.5" />
+          TopLeft="290.5,205.5" />
         <NodeLayout
           Size="168,42"
           Id="Package\Armar fact\GrupoEtario - Final\Columna derivada"
@@ -13841,9 +13832,7 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -13852,34 +13841,32 @@ FROM int_Billing_final;</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="225.5,40"
+              EndConnector="196.5,45"
               Start="0,0"
-              End="225.5,32.5">
+              End="196.5,37.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,16" />
+                    End="0,18.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,16"
-                    Point2="0,20"
-                    Point3="4,20" />
+                    Point1="0,18.5"
+                    Point2="0,22.5"
+                    Point3="4,22.5" />
                   <mssgle:LineSegment
-                    End="221.5,20" />
+                    End="192.5,22.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="221.5,20"
-                    Point2="225.5,20"
-                    Point3="225.5,24" />
+                    Point1="192.5,22.5"
+                    Point2="196.5,22.5"
+                    Point3="196.5,26.5" />
                   <mssgle:LineSegment
-                    End="225.5,32.5" />
+                    End="196.5,37.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13915,7 +13902,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\Medida - Discounts">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="217,42"
           Id="Package\Armar fact\Medida - Discounts\int Billing con precios y desc"
@@ -13943,9 +13930,7 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13981,7 +13966,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\Medida - Prices">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="182,42"
           Id="Package\Armar fact\Medida - Prices\int Billing con precios"
@@ -14009,9 +13994,7 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -15273,10 +15256,6 @@ FROM int_Billing_final;</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="153,42"
-          Id="Package\Dims a DW\DW Customers"
-          TopLeft="21.5,83.5" />
-        <NodeLayout
           Size="135,42"
           Id="Package\Dims a DW\DW Region"
           TopLeft="670.5,91.5" />
@@ -15292,6 +15271,10 @@ FROM int_Billing_final;</property>
           Size="124,42"
           Id="Package\Dims a DW\dim Time"
           TopLeft="524.5,17.5" />
+        <NodeLayout
+          Size="153,42"
+          Id="Package\Dims a DW\DW Customers"
+          TopLeft="21.5,83.5" />
         <NodeLayout
           Size="130,42"
           Id="Package\Dims a DW\DW Billing"
@@ -15320,6 +15303,28 @@ FROM int_Billing_final;</property>
           Size="143,42"
           Id="Package\Dims a DW\dim Products"
           TopLeft="362.5,16.5" />
+        <EdgeLayout
+          Id="Package\Dims a DW.Paths[Salida de origen de OLE DB]"
+          TopLeft="97,58.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,25"
+              Start="0,0"
+              End="0,17.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Dims a DW.Paths[Salida de origen de OLE DB5]"
           TopLeft="104.5,189.5">
@@ -15430,28 +15435,6 @@ FROM int_Billing_final;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Dims a DW.Paths[Salida de origen de OLE DB]"
-          TopLeft="97,58.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,25"
-              Start="0,0"
-              End="0,17.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,17.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -15469,33 +15452,20 @@ FROM int_Billing_final;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\DW Time">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\int_Billing_Final">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\Dims a DW\DW Customers">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\DW Employees">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -15534,7 +15504,7 @@ FROM int_Billing_final;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\DW Employees">
+    design-time-name="Package\Dims a DW\DW Time">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -15560,7 +15530,7 @@ FROM int_Billing_final;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\DW Products">
+    design-time-name="Package\Dims a DW\int_Billing_Final">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -15574,6 +15544,19 @@ FROM int_Billing_final;</property>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Dims a DW\dim Employees">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\DW Products">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
