@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="198"
-  DTS:VersionGUID="{91E63D1E-AD57-492B-95E5-5C946622B80D}">
+  DTS:VersionBuild="205"
+  DTS:VersionGUID="{6302557E-F9B1-48AA-9C94-57A2A8583E91}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -290,7 +290,6 @@
       DTS:refId="Package\Armar fact"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Contenedor de secuencias"
-      DTS:Disabled="True"
       DTS:DTSID="{861F22C9-19FE-49E1-BD44-93B300F12FF3}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -2545,7 +2544,6 @@ ORDER BY int_Billing.BILLING_ID;</property>
       DTS:refId="Package\Borrar int"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
-      DTS:Disabled="True"
       DTS:DTSID="{2849689C-EFB1-4063-851F-6C95E1116C81}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -2556,14 +2554,13 @@ ORDER BY int_Billing.BILLING_ID;</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{069C93FD-D2DB-4777-B8F8-EBE42E92A053}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE [dbo].[int_Billing]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_con_precios]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_con_precios_y_desc]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_final]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Clientes]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Empleados]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Productos]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_time]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Discount]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Prices]&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [dbo].[int_Billing]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_con_precios]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_con_precios_y_desc]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_final]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Billing_prefinal]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Clientes]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Empleados]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_Productos]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_dim_time]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Discount]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[int_Prices]&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Borrar stg"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Tarea Ejecutar SQL"
-      DTS:Disabled="True"
       DTS:DTSID="{7CDFA7D9-2185-47D2-9C16-51AB84FCF711}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
@@ -2581,7 +2578,6 @@ ORDER BY int_Billing.BILLING_ID;</property>
       DTS:refId="Package\Cargar int"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Contenedor de secuencias"
-      DTS:Disabled="True"
       DTS:DTSID="{FF895DAC-66B1-427C-B862-350E2B9A5D42}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -5234,7 +5230,7 @@ WHERE EMPLOYEE_ID IS NOT NULL;</property>
                       dataType="System.String"
                       description="Comando SQL para ejecutar."
                       name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT * FROM int_Billing
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISTINCT date FROM int_Billing
 WHERE date IS NOT NULL;</property>
                     <property
                       dataType="System.String"
@@ -5280,61 +5276,6 @@ WHERE date IS NOT NULL;</property>
                           lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[date]"
                           name="date"
                           truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[billing_id]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[billing_id]"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[billing_id]"
-                          name="billing_id"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[customer_id]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[customer_id]"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[customer_id]"
-                          name="customer_id"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[employee_id]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[employee_id]"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[employee_id]"
-                          name="employee_id"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[product_id]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[product_id]"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[product_id]"
-                          name="product_id"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[quantity]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[quantity]"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[quantity]"
-                          name="quantity"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[region]"
-                          dataType="wstr"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[region]"
-                          length="255"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[region]"
-                          name="region"
-                          truncationRowDisposition="FailComponent" />
                       </outputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -5342,31 +5283,6 @@ WHERE date IS NOT NULL;</property>
                           refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[date]"
                           dataType="dbTimeStamp"
                           name="date" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[billing_id]"
-                          dataType="i4"
-                          name="billing_id" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[customer_id]"
-                          dataType="i4"
-                          name="customer_id" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[employee_id]"
-                          dataType="i4"
-                          name="employee_id" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[product_id]"
-                          dataType="i4"
-                          name="product_id" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[quantity]"
-                          dataType="i4"
-                          name="quantity" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].ExternalColumns[region]"
-                          dataType="wstr"
-                          length="255"
-                          name="region" />
                       </externalMetadataColumns>
                     </output>
                     <output
@@ -5375,41 +5291,10 @@ WHERE date IS NOT NULL;</property>
                       name="Salida de error de origen de OLE DB">
                       <outputColumns>
                         <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[billing_id]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[billing_id]"
-                          name="billing_id" />
-                        <outputColumn
                           refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[date]"
                           dataType="dbTimeStamp"
                           lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[date]"
                           name="date" />
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[customer_id]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[customer_id]"
-                          name="customer_id" />
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[employee_id]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[employee_id]"
-                          name="employee_id" />
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[product_id]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[product_id]"
-                          name="product_id" />
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[quantity]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[quantity]"
-                          name="quantity" />
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[region]"
-                          dataType="wstr"
-                          length="255"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[region]"
-                          name="region" />
                         <outputColumn
                           refId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
                           dataType="i4"
@@ -5443,7 +5328,7 @@ WHERE date IS NOT NULL;</property>
                     <property
                       dataType="System.String"
                       description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                      name="OpenRowset">[dbo].[int_dim_time]</property>
+                      name="OpenRowset">[int_dim_time]</property>
                     <property
                       dataType="System.String"
                       description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
@@ -5477,7 +5362,7 @@ WHERE date IS NOT NULL;</property>
                     <property
                       dataType="System.String"
                       description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
-                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                      name="FastLoadOptions">CHECK_CONSTRAINTS</property>
                     <property
                       dataType="System.Int32"
                       description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
@@ -5503,44 +5388,38 @@ WHERE date IS NOT NULL;</property>
                           refId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].Columns[year_time]"
                           cachedDataType="i4"
                           cachedName="year_time"
-                          cachedSortKeyPosition="1"
                           externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].ExternalColumns[year_time]"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[year_time]" />
+                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[year_time]" />
                         <inputColumn
                           refId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].Columns[semester_time]"
                           cachedDataType="i4"
                           cachedName="semester_time"
-                          cachedSortKeyPosition="2"
                           externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].ExternalColumns[semester_time]"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[semester_time]" />
+                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[semester_time]" />
                         <inputColumn
                           refId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].Columns[quarter_time]"
                           cachedDataType="i4"
                           cachedName="quarter_time"
-                          cachedSortKeyPosition="3"
                           externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].ExternalColumns[quarter_time]"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[quarter_time]" />
+                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[quarter_time]" />
                         <inputColumn
                           refId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].Columns[month_time]"
                           cachedDataType="i4"
                           cachedName="month_time"
-                          cachedSortKeyPosition="4"
                           externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].ExternalColumns[month_time]"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[month_time]" />
+                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[month_time]" />
                         <inputColumn
                           refId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].Columns[day_time]"
                           cachedDataType="i4"
                           cachedName="day_time"
-                          cachedSortKeyPosition="5"
                           externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].ExternalColumns[day_time]"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[day_time]" />
+                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[day_time]" />
                         <inputColumn
                           refId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].Columns[date_time]"
                           cachedDataType="dbTimeStamp"
                           cachedName="date_time"
-                          cachedSortKeyPosition="6"
                           externalMetadataColumnId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].ExternalColumns[date_time]"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[date_time]" />
+                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[date_time]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -5550,15 +5429,11 @@ WHERE date IS NOT NULL;</property>
                           name="year_time" />
                         <externalMetadataColumn
                           refId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].ExternalColumns[semester_time]"
-                          codePage="1252"
-                          dataType="str"
-                          length="50"
+                          dataType="i4"
                           name="semester_time" />
                         <externalMetadataColumn
                           refId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].ExternalColumns[quarter_time]"
-                          codePage="1252"
-                          dataType="str"
-                          length="50"
+                          dataType="i4"
                           name="quarter_time" />
                         <externalMetadataColumn
                           refId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].ExternalColumns[month_time]"
@@ -5570,7 +5445,7 @@ WHERE date IS NOT NULL;</property>
                           name="day_time" />
                         <externalMetadataColumn
                           refId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB].ExternalColumns[date_time]"
-                          dataType="dbDate"
+                          dataType="dbTimeStamp"
                           name="date_time" />
                       </externalMetadataColumns>
                     </input>
@@ -5600,441 +5475,13 @@ WHERE date IS NOT NULL;</property>
                     </output>
                   </outputs>
                 </component>
-                <component
-                  refId="Package\Cargar int\Cargar Time a Int\Ordenar"
-                  componentClassID="Microsoft.Sort"
-                  contactInfo="Ordenar;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
-                  description="Ordena los datos de entrada de manera ascendente o descendente cuando no es posible ordenarlos en su origen. Por ejemplo, se ordenan los datos de ventas por 'id. de cliente' antes de que se escriban en un archivo plano y se entreguen a otro departamento. Nota: no se recomienda realizar esta transformación para grandes flujos de datos."
-                  name="Ordenar"
-                  version="1">
-                  <properties>
-                    <property
-                      dataType="System.Boolean"
-                      description="Indica si la transformación Ordenar quita filas con valores de ordenación duplicados."
-                      name="EliminateDuplicates">true</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Especifica el número máximo de subprocesos que se deben usar para la ordenación."
-                      expressionType="Notify"
-                      name="MaximumThreads">-1</property>
-                  </properties>
-                  <inputs>
-                    <input
-                      refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación]"
-                      name="Entrada de ordenación">
-                      <inputColumns>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[date]"
-                          cachedDataType="dbTimeStamp"
-                          cachedName="date"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[date]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">0</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[billing_id]"
-                          cachedDataType="i4"
-                          cachedName="billing_id"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[billing_id]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">0</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[customer_id]"
-                          cachedDataType="i4"
-                          cachedName="customer_id"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[customer_id]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">0</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[employee_id]"
-                          cachedDataType="i4"
-                          cachedName="employee_id"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[employee_id]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">0</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[region]"
-                          cachedDataType="wstr"
-                          cachedLength="255"
-                          cachedName="region"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[region]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">0</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[product_id]"
-                          cachedDataType="i4"
-                          cachedName="product_id"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[product_id]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">0</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[quantity]"
-                          cachedDataType="i4"
-                          cachedName="quantity"
-                          lineageId="Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[quantity]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">0</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[year_time]"
-                          cachedDataType="i4"
-                          cachedName="year_time"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[year_time]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">1</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[semester_time]"
-                          cachedDataType="i4"
-                          cachedName="semester_time"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[semester_time]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">2</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[quarter_time]"
-                          cachedDataType="i4"
-                          cachedName="quarter_time"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[quarter_time]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">3</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[month_time]"
-                          cachedDataType="i4"
-                          cachedName="month_time"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[month_time]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">4</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[day_time]"
-                          cachedDataType="i4"
-                          cachedName="day_time"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[day_time]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">5</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación].Columns[date_time]"
-                          cachedDataType="dbTimeStamp"
-                          cachedName="date_time"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[date_time]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">6</property>
-                          </properties>
-                        </inputColumn>
-                      </inputColumns>
-                      <externalMetadataColumns />
-                    </input>
-                  </inputs>
-                  <outputs>
-                    <output
-                      refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación]"
-                      isSorted="true"
-                      name="Salida de ordenación">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[date]"
-                          dataType="dbTimeStamp"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[date]"
-                          name="date">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[date]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[BILLING_ID]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[BILLING_ID]"
-                          name="BILLING_ID">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[billing_id]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[CUSTOMER_ID]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[CUSTOMER_ID]"
-                          name="CUSTOMER_ID">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[customer_id]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[EMPLOYEE_ID]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[EMPLOYEE_ID]"
-                          name="EMPLOYEE_ID">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[employee_id]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[REGION]"
-                          dataType="wstr"
-                          length="255"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[REGION]"
-                          name="REGION">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[region]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[PRODUCT_ID]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[PRODUCT_ID]"
-                          name="PRODUCT_ID">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[product_id]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[QUANTITY]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[QUANTITY]"
-                          name="QUANTITY">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\int Billing.Outputs[Salida de origen de OLE DB].Columns[quantity]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[year_time]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[year_time]"
-                          name="year_time"
-                          sortKeyPosition="1">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[year_time]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[semester_time]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[semester_time]"
-                          name="semester_time"
-                          sortKeyPosition="2">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[semester_time]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[quarter_time]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[quarter_time]"
-                          name="quarter_time"
-                          sortKeyPosition="3">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[quarter_time]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[month_time]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[month_time]"
-                          name="month_time"
-                          sortKeyPosition="4">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[month_time]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[day_time]"
-                          dataType="i4"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[day_time]"
-                          name="day_time"
-                          sortKeyPosition="5">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[day_time]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[date_time]"
-                          dataType="dbTimeStamp"
-                          lineageId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación].Columns[date_time]"
-                          name="date_time"
-                          sortKeyPosition="6">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada].Columns[date_time]}</property>
-                          </properties>
-                        </outputColumn>
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
               </components>
               <paths>
                 <path
                   refId="Package\Cargar int\Cargar Time a Int.Paths[Salida de columna derivada]"
-                  endId="Package\Cargar int\Cargar Time a Int\Ordenar.Inputs[Entrada de ordenación]"
+                  endId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB]"
                   name="Salida de columna derivada"
                   startId="Package\Cargar int\Cargar Time a Int\Columna derivada.Outputs[Salida de columna derivada]" />
-                <path
-                  refId="Package\Cargar int\Cargar Time a Int.Paths[Salida de ordenación]"
-                  endId="Package\Cargar int\Cargar Time a Int\int_dim_time.Inputs[Entrada de destino de OLE DB]"
-                  name="Salida de ordenación"
-                  startId="Package\Cargar int\Cargar Time a Int\Ordenar.Outputs[Salida de ordenación]" />
                 <path
                   refId="Package\Cargar int\Cargar Time a Int.Paths[Salida de origen de OLE DB]"
                   endId="Package\Cargar int\Cargar Time a Int\Columna derivada.Inputs[Entrada de columna derivada]"
@@ -6092,7 +5539,6 @@ WHERE date IS NOT NULL;</property>
       DTS:refId="Package\Cargar stg"
       DTS:CreationName="STOCK:SEQUENCE"
       DTS:Description="Contenedor de secuencias"
-      DTS:Disabled="True"
       DTS:DTSID="{9B787466-0CAA-456D-869D-DFB97A971E61}"
       DTS:ExecutableType="STOCK:SEQUENCE"
       DTS:LocaleID="-1"
@@ -11477,7 +10923,7 @@ WHERE date IS NOT NULL;</property>
                   dataType="System.String"
                   description="Comando SQL para ejecutar."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select distinct year_time, semester_time, quarter_time, month_time, day_time, date_time from int_dim_time;</property>
                 <property
                   dataType="System.String"
                   description="Variable que contiene el comando SQL para ejecutar."
@@ -11494,7 +10940,7 @@ WHERE date IS NOT NULL;</property>
                   dataType="System.Int32"
                   description="Especifica el modo utilizado para obtener acceso a la base de datos."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">2</property>
                 <property
                   dataType="System.String"
                   description="Asignaciones entre los parámetros del comando SQL y las variables."
@@ -11524,23 +10970,19 @@ WHERE date IS NOT NULL;</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].Columns[semester_time]"
-                      codePage="1252"
-                      dataType="str"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].ExternalColumns[semester_time]"
-                      length="50"
                       lineageId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].Columns[semester_time]"
                       name="semester_time"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].Columns[quarter_time]"
-                      codePage="1252"
-                      dataType="str"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].ExternalColumns[quarter_time]"
-                      length="50"
                       lineageId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].Columns[quarter_time]"
                       name="quarter_time"
                       truncationRowDisposition="FailComponent" />
@@ -11564,7 +11006,7 @@ WHERE date IS NOT NULL;</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].Columns[date_time]"
-                      dataType="dbDate"
+                      dataType="dbTimeStamp"
                       errorOrTruncationOperation="Conversión"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].ExternalColumns[date_time]"
@@ -11580,15 +11022,11 @@ WHERE date IS NOT NULL;</property>
                       name="year_time" />
                     <externalMetadataColumn
                       refId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].ExternalColumns[semester_time]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
+                      dataType="i4"
                       name="semester_time" />
                     <externalMetadataColumn
                       refId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].ExternalColumns[quarter_time]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
+                      dataType="i4"
                       name="quarter_time" />
                     <externalMetadataColumn
                       refId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].ExternalColumns[month_time]"
@@ -11600,7 +11038,7 @@ WHERE date IS NOT NULL;</property>
                       name="day_time" />
                     <externalMetadataColumn
                       refId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].ExternalColumns[date_time]"
-                      dataType="dbDate"
+                      dataType="dbTimeStamp"
                       name="date_time" />
                   </externalMetadataColumns>
                 </output>
@@ -11616,16 +11054,12 @@ WHERE date IS NOT NULL;</property>
                       name="year_time" />
                     <outputColumn
                       refId="Package\Dims a DW\dim Time.Outputs[Salida de error de origen de OLE DB].Columns[semester_time]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
+                      dataType="i4"
                       lineageId="Package\Dims a DW\dim Time.Outputs[Salida de error de origen de OLE DB].Columns[semester_time]"
                       name="semester_time" />
                     <outputColumn
                       refId="Package\Dims a DW\dim Time.Outputs[Salida de error de origen de OLE DB].Columns[quarter_time]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
+                      dataType="i4"
                       lineageId="Package\Dims a DW\dim Time.Outputs[Salida de error de origen de OLE DB].Columns[quarter_time]"
                       name="quarter_time" />
                     <outputColumn
@@ -11640,7 +11074,7 @@ WHERE date IS NOT NULL;</property>
                       name="day_time" />
                     <outputColumn
                       refId="Package\Dims a DW\dim Time.Outputs[Salida de error de origen de OLE DB].Columns[date_time]"
-                      dataType="dbDate"
+                      dataType="dbTimeStamp"
                       lineageId="Package\Dims a DW\dim Time.Outputs[Salida de error de origen de OLE DB].Columns[date_time]"
                       name="date_time" />
                     <outputColumn
@@ -12585,7 +12019,7 @@ WHERE date IS NOT NULL;</property>
                 <property
                   dataType="System.String"
                   description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                  name="OpenRowset">[dbo].[dim_Time]</property>
+                  name="OpenRowset">[dim_Time]</property>
                 <property
                   dataType="System.String"
                   description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
@@ -12649,17 +12083,13 @@ WHERE date IS NOT NULL;</property>
                       lineageId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].Columns[year_time]" />
                     <inputColumn
                       refId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].Columns[semester_time]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
+                      cachedDataType="i4"
                       cachedName="semester_time"
                       externalMetadataColumnId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].ExternalColumns[semester_time]"
                       lineageId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].Columns[semester_time]" />
                     <inputColumn
                       refId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].Columns[quarter_time]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
+                      cachedDataType="i4"
                       cachedName="quarter_time"
                       externalMetadataColumnId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].ExternalColumns[quarter_time]"
                       lineageId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].Columns[quarter_time]" />
@@ -12677,7 +12107,7 @@ WHERE date IS NOT NULL;</property>
                       lineageId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].Columns[day_time]" />
                     <inputColumn
                       refId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].Columns[date_time]"
-                      cachedDataType="dbDate"
+                      cachedDataType="dbTimeStamp"
                       cachedName="date_time"
                       externalMetadataColumnId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].ExternalColumns[date_time]"
                       lineageId="Package\Dims a DW\dim Time.Outputs[Salida de origen de OLE DB].Columns[date_time]" />
@@ -12685,24 +12115,16 @@ WHERE date IS NOT NULL;</property>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].ExternalColumns[KEY_TIME]"
-                      dataType="i4"
-                      name="KEY_TIME" />
-                    <externalMetadataColumn
                       refId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].ExternalColumns[year_time]"
                       dataType="i4"
                       name="year_time" />
                     <externalMetadataColumn
                       refId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].ExternalColumns[semester_time]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
+                      dataType="i4"
                       name="semester_time" />
                     <externalMetadataColumn
                       refId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].ExternalColumns[quarter_time]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
+                      dataType="i4"
                       name="quarter_time" />
                     <externalMetadataColumn
                       refId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].ExternalColumns[month_time]"
@@ -12714,8 +12136,12 @@ WHERE date IS NOT NULL;</property>
                       name="day_time" />
                     <externalMetadataColumn
                       refId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].ExternalColumns[date_time]"
-                      dataType="dbDate"
+                      dataType="dbTimeStamp"
                       name="date_time" />
+                    <externalMetadataColumn
+                      refId="Package\Dims a DW\DW Time.Inputs[Entrada de destino de OLE DB].ExternalColumns[KEY_TIME]"
+                      dataType="i4"
+                      name="KEY_TIME" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -13679,7 +13105,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\Atrib - GrupoEtario">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="124,42"
           Id="Package\Armar fact\Atrib - GrupoEtario\Int Billing"
@@ -13723,7 +13149,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -13757,7 +13185,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13793,7 +13223,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\GrupoEtario - Final">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="196,42"
           Id="Package\Armar fact\GrupoEtario - Final\GrupoEtario sin nombre"
@@ -13837,7 +13267,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -13871,7 +13303,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13907,7 +13341,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\Medida - Discounts">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="217,42"
           Id="Package\Armar fact\Medida - Discounts\int Billing con precios y desc"
@@ -13935,7 +13369,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13971,7 +13407,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\Medida - Prices">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="182,42"
           Id="Package\Armar fact\Medida - Prices\int Billing con precios"
@@ -13999,7 +13435,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -14455,7 +13893,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Cargar int\Cargar Time a Int">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="123,42"
           Id="Package\Cargar int\Cargar Time a Int\int Billing"
@@ -14464,10 +13902,6 @@ FROM int_Billing_final;</property>
           Size="168,42"
           Id="Package\Cargar int\Cargar Time a Int\Columna derivada"
           TopLeft="141.5,95.5" />
-        <NodeLayout
-          Size="119,42"
-          Id="Package\Cargar int\Cargar Time a Int\Ordenar"
-          TopLeft="262.5,172.5" />
         <NodeLayout
           Size="141,42"
           Id="Package\Cargar int\Cargar Time a Int\int_dim_time"
@@ -14503,45 +13937,7 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Cargar int\Cargar Time a Int.Paths[Salida de ordenación]"
-          TopLeft="322,214.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="88,38"
-              Start="0,0"
-              End="88,30.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,15" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,15"
-                    Point2="0,19"
-                    Point3="4,19" />
-                  <mssgle:LineSegment
-                    End="84,19" />
-                  <mssgle:CubicBezierSegment
-                    Point1="84,19"
-                    Point2="88,19"
-                    Point3="88,23" />
-                  <mssgle:LineSegment
-                    End="88,30.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -14550,34 +13946,32 @@ FROM int_Billing_final;</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="96.5,35"
+              EndConnector="184.5,115"
               Start="0,0"
-              End="96.5,27.5">
+              End="184.5,107.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,13.5" />
+                    End="0,53.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,13.5"
-                    Point2="0,17.5"
-                    Point3="4,17.5" />
+                    Point1="0,53.5"
+                    Point2="0,57.5"
+                    Point3="4,57.5" />
                   <mssgle:LineSegment
-                    End="92.5,17.5" />
+                    End="180.5,57.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="92.5,17.5"
-                    Point2="96.5,17.5"
-                    Point3="96.5,21.5" />
+                    Point1="180.5,57.5"
+                    Point2="184.5,57.5"
+                    Point3="184.5,61.5" />
                   <mssgle:LineSegment
-                    End="96.5,27.5" />
+                    End="184.5,107.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
