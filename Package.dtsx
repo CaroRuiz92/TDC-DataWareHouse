@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="218"
-  DTS:VersionGUID="{0FC4EAB7-709C-428B-A529-D136651101D6}">
+  DTS:VersionBuild="252"
+  DTS:VersionGUID="{07193880-D4C3-4CD0-8214-3C6A1BDA1117}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -2527,7 +2527,7 @@ ORDER BY int_Billing.BILLING_ID;</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{C7F59D9C-934C-446A-B7EE-D09762A12448}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE [dbo].[dim_Customer]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[dim_Employee]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[dim_Product]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[dim_Time]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[DW_Billing]&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [dbo].[dim_Customer]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[dim_Employee]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[dim_Product]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[dim_Time]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[DW_Billing]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[Stock_Table]&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -12120,6 +12120,506 @@ FROM int_Billing_final;</property>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tabla Stock"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tarea Flujo de datos"
+      DTS:DTSID="{C9E40991-5F9C-4155-9C35-ADEB63055CA5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tabla Stock"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Tabla Stock\Columna derivada"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Columna derivada;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;0"
+              description="Crea nuevos valores de columna aplicando expresiones a las columnas de entrada de la transformación. Crea nuevas columnas o sobrescribe las columnas existentes. Por ejemplo, se concatenan los valores de las columnas 'nombre' y 'apellidos' para crear una columna 'nombre completo'."
+              name="Columna derivada"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Tabla Stock\Columna derivada.Inputs[Entrada de columna derivada]"
+                  description="Entrada en la transformación Columna derivada"
+                  name="Entrada de columna derivada">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Tabla Stock\Columna derivada.Inputs[Entrada de columna derivada].Columns[Id_Product_Stock]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Id_Product_Stock"
+                      lineageId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Id_Product_Stock]" />
+                    <inputColumn
+                      refId="Package\Tabla Stock\Columna derivada.Inputs[Entrada de columna derivada].Columns[Date_Stock]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Date_Stock"
+                      lineageId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Date_Stock]" />
+                    <inputColumn
+                      refId="Package\Tabla Stock\Columna derivada.Inputs[Entrada de columna derivada].Columns[Variation_Stock]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Variation_Stock"
+                      lineageId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Variation_Stock]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada]"
+                  description="Salida predeterminada de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  name="Salida de columna derivada"
+                  synchronousInputId="Package\Tabla Stock\Columna derivada.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[ID_Stock_Producto]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[ID_Stock_Producto]"
+                      name="ID_Stock_Producto"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">(DT_I4)#{Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Id_Product_Stock]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I4)Id_Product_Stock</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[Fecha_Stock]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[Fecha_Stock]"
+                      name="Fecha_Stock"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">(DT_DBDATE)[SUBSTRING](#{Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Date_Stock]},1,10)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DBDATE)SUBSTRING(Date_Stock,1,10)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[Hora_Stock]"
+                      dataType="dbTime"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[Hora_Stock]"
+                      name="Hora_Stock"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">(DT_DBTIME)[SUBSTRING](#{Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Date_Stock]},12,23)</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_DBTIME)SUBSTRING(Date_Stock,12,23)</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[Variacion_Stock]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Cálculo"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[Variacion_Stock]"
+                      name="Variacion_Stock"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión de columna derivada"
+                          name="Expression">(DT_I4)#{Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Variation_Stock]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Expresión descriptiva de columna derivada"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I4)Variation_Stock</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Tabla Stock\Columna derivada.Outputs[Salida de error de columna derivada]"
+                  description="Salida de error de la transformación Columna derivada"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de columna derivada"
+                  synchronousInputId="Package\Tabla Stock\Columna derivada.Inputs[Entrada de columna derivada]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Tabla Stock\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Tabla Stock\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Tabla Stock\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Tabla Stock\Columna derivada.Outputs[Salida de error de columna derivada].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Tabla Stock\stg_Stock"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+              description="Origen de OLE DB"
+              name="stg_Stock"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[dbo].[stg_Stock]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">UPDATE stg_Stock
+SET Date_Stock = REPLACE(Date_Stock, '60', '59')
+WHERE CHARINDEX('60', Date_Stock) &gt; 0;
+
+SELECT * FROM stg_Stock;</property>
+                <property
+                  dataType="System.String"
+                  description="Variable que contiene el comando SQL para ejecutar."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Asignaciones entre los parámetros del comando SQL y las variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Tabla Stock\stg_Stock.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DELL-CARITO\MSSQLSERVER01.staging]"
+                  connectionManagerRefId="Package.ConnectionManagers[DELL-CARITO\MSSQLSERVER01.staging]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB]"
+                  name="Salida de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Id_Product_Stock]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].ExternalColumns[Id_Product_Stock]"
+                      length="50"
+                      lineageId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Id_Product_Stock]"
+                      name="Id_Product_Stock"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Date_Stock]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].ExternalColumns[Date_Stock]"
+                      length="50"
+                      lineageId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Date_Stock]"
+                      name="Date_Stock"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Variation_Stock]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversión"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].ExternalColumns[Variation_Stock]"
+                      length="50"
+                      lineageId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].Columns[Variation_Stock]"
+                      name="Variation_Stock"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].ExternalColumns[Id_Product_Stock]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Id_Product_Stock" />
+                    <externalMetadataColumn
+                      refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].ExternalColumns[Date_Stock]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Date_Stock" />
+                    <externalMetadataColumn
+                      refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB].ExternalColumns[Variation_Stock]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Variation_Stock" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de error de origen de OLE DB]"
+                  isErrorOut="true"
+                  name="Salida de error de origen de OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de error de origen de OLE DB].Columns[Id_Product_Stock]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Tabla Stock\stg_Stock.Outputs[Salida de error de origen de OLE DB].Columns[Id_Product_Stock]"
+                      name="Id_Product_Stock" />
+                    <outputColumn
+                      refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de error de origen de OLE DB].Columns[Date_Stock]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Tabla Stock\stg_Stock.Outputs[Salida de error de origen de OLE DB].Columns[Date_Stock]"
+                      name="Date_Stock" />
+                    <outputColumn
+                      refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de error de origen de OLE DB].Columns[Variation_Stock]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Tabla Stock\stg_Stock.Outputs[Salida de error de origen de OLE DB].Columns[Variation_Stock]"
+                      name="Variation_Stock" />
+                    <outputColumn
+                      refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Tabla Stock\stg_Stock.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Tabla Stock\stg_Stock.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Tabla Stock\stg_Stock.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Tabla Stock\Stock_table a DW"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+              description="Destino de OLE DB"
+              name="Stock_table a DW"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowset">[Stock_table]</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Comando SQL para ejecutar."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadOptions">CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Tabla Stock\Stock_table a DW.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DELL-CARITO\MSSQLSERVER01.TDC]"
+                  connectionManagerRefId="Package.ConnectionManagers[DELL-CARITO\MSSQLSERVER01.TDC]"
+                  description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB]"
+                  errorOrTruncationOperation="Insertar"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrada de destino de OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].Columns[ID_Stock_Producto]"
+                      cachedDataType="i4"
+                      cachedName="ID_Stock_Producto"
+                      externalMetadataColumnId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].ExternalColumns[ID_Stock_Producto]"
+                      lineageId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[ID_Stock_Producto]" />
+                    <inputColumn
+                      refId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].Columns[Fecha_Stock]"
+                      cachedDataType="dbDate"
+                      cachedName="Fecha_Stock"
+                      externalMetadataColumnId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fecha_Stock]"
+                      lineageId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[Fecha_Stock]" />
+                    <inputColumn
+                      refId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].Columns[Hora_Stock]"
+                      cachedDataType="dbTime"
+                      cachedName="Hora_Stock"
+                      externalMetadataColumnId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].ExternalColumns[Hora_Stock]"
+                      lineageId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[Hora_Stock]" />
+                    <inputColumn
+                      refId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].Columns[Variacion_Stock]"
+                      cachedDataType="i4"
+                      cachedName="Variacion_Stock"
+                      externalMetadataColumnId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].ExternalColumns[Variacion_Stock]"
+                      lineageId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada].Columns[Variacion_Stock]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].ExternalColumns[ID_Stock_Producto]"
+                      dataType="i4"
+                      name="ID_Stock_Producto" />
+                    <externalMetadataColumn
+                      refId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].ExternalColumns[Fecha_Stock]"
+                      dataType="dbDate"
+                      name="Fecha_Stock" />
+                    <externalMetadataColumn
+                      refId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].ExternalColumns[Hora_Stock]"
+                      dataType="dbTime2"
+                      name="Hora_Stock"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB].ExternalColumns[Variacion_Stock]"
+                      dataType="i4"
+                      name="Variacion_Stock" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Tabla Stock\Stock_table a DW.Outputs[Salida de error de destino de OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Salida de error de destino de OLE DB"
+                  synchronousInputId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Tabla Stock\Stock_table a DW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Tabla Stock\Stock_table a DW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Tabla Stock\Stock_table a DW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Tabla Stock\Stock_table a DW.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Tabla Stock.Paths[Salida de columna derivada]"
+              endId="Package\Tabla Stock\Stock_table a DW.Inputs[Entrada de destino de OLE DB]"
+              name="Salida de columna derivada"
+              startId="Package\Tabla Stock\Columna derivada.Outputs[Salida de columna derivada]" />
+            <path
+              refId="Package\Tabla Stock.Paths[Salida de origen de OLE DB]"
+              endId="Package\Tabla Stock\Columna derivada.Inputs[Entrada de columna derivada]"
+              name="Salida de origen de OLE DB"
+              startId="Package\Tabla Stock\stg_Stock.Outputs[Salida de origen de OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
@@ -12170,6 +12670,14 @@ FROM int_Billing_final;</property>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Restricción 5"
       DTS:To="Package\Dims a DW" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{74FC4180-B690-454A-98AD-AB4554E0A4D5}"
+      DTS:From="Package\Dims a DW"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 6"
+      DTS:To="Package\Tabla Stock" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
@@ -12304,14 +12812,14 @@ FROM int_Billing_final;</property>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="236,248"
+          PanelSize="236,249"
           Size="236,292"
           Id="Package\Armar fact"
           TopLeft="540.5,111.772727272727" />
         <NodeLayout
           Size="157,42"
           Id="Package\Borrar dims DW"
-          TopLeft="572.5,440.5" />
+          TopLeft="573.5,431.5" />
         <NodeLayout
           Size="124,42"
           Id="Package\Borrar int"
@@ -12579,7 +13087,7 @@ FROM int_Billing_final;</property>
         <NodeLayout
           Size="134,42"
           Id="Package\Dims a DW"
-          TopLeft="582.5,513.927272727272" />
+          TopLeft="585.5,498.927272727272" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
           TopLeft="74.25,67.5">
@@ -12694,18 +13202,18 @@ FROM int_Billing_final;</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 4]"
-          TopLeft="654.75,403.772727272727">
+          TopLeft="655.25,403.772727272727">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,36.7272727272727"
+              EndConnector="0,27.727272727273"
               Start="0,0"
-              End="0,29.2272727272727">
+              End="0,20.227272727273">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,29.2272727272727" />
+                    End="0,20.227272727273" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -12716,18 +13224,44 @@ FROM int_Billing_final;</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 5]"
-          TopLeft="650.25,482.5">
+          TopLeft="652.25,473.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,31.427272727272"
+              EndConnector="0,25.427272727272"
               Start="0,0"
-              End="0,23.927272727272">
+              End="0,17.927272727272">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,23.927272727272" />
+                    End="0,17.927272727272" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="137,42"
+          Id="Package\Tabla Stock"
+          TopLeft="586.5,567.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 6]"
+          TopLeft="653.75,540.927272727272">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26.572727272728"
+              Start="0,0"
+              End="0,19.072727272728">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.072727272728" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -12743,7 +13277,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\Atrib - GrupoEtario">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="124,42"
           Id="Package\Armar fact\Atrib - GrupoEtario\Int Billing"
@@ -12787,7 +13321,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -12821,7 +13357,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -12857,11 +13395,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\DW Billing final">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="196,42"
-          Id="Package\Armar fact\DW Billing final\GrupoEtario sin nombre"
-          TopLeft="5.5,5.5" />
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="199,42"
           Id="Package\Armar fact\DW Billing final\GrupoEtario con nombre"
@@ -12870,6 +13404,10 @@ FROM int_Billing_final;</property>
           Size="168,42"
           Id="Package\Armar fact\DW Billing final\Columna derivada"
           TopLeft="109.5,118.5" />
+        <NodeLayout
+          Size="196,42"
+          Id="Package\Armar fact\DW Billing final\GrupoEtario sin nombre"
+          TopLeft="5.5,5.5" />
         <EdgeLayout
           Id="Package\Armar fact\DW Billing final.Paths[Salida de origen de OLE DB]"
           TopLeft="103.5,47.5">
@@ -12901,7 +13439,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -12935,14 +13475,16 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Armar fact\DW Billing final\GrupoEtario sin nombre">
+    design-time-name="Package\Armar fact\DW Billing final\GrupoEtario con nombre">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -12955,7 +13497,7 @@ FROM int_Billing_final;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Armar fact\DW Billing final\GrupoEtario con nombre">
+    design-time-name="Package\Armar fact\DW Billing final\GrupoEtario sin nombre">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -12971,7 +13513,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\Medida - Discounts">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="217,42"
           Id="Package\Armar fact\Medida - Discounts\int Billing con precios y desc"
@@ -12999,7 +13541,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13035,7 +13579,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Armar fact\Medida - Prices">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="182,42"
           Id="Package\Armar fact\Medida - Prices\int Billing con precios"
@@ -13063,7 +13607,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13094,7 +13640,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Cargar int\Cargar Billing a Int">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="147,42"
           Id="Package\Cargar int\Cargar Billing a Int\stg Billing unif"
@@ -13122,7 +13668,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13153,7 +13701,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Cargar int\Cargar Customers a Int">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="147,42"
           Id="Package\Cargar int\Cargar Customers a Int\int Customers"
@@ -13181,7 +13729,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13212,7 +13762,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Cargar int\Cargar Employees a Int">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="151,42"
           Id="Package\Cargar int\Cargar Employees a Int\stg Employees"
@@ -13240,7 +13790,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13395,7 +13947,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Cargar int\Cargar Products a Int">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="140,42"
           Id="Package\Cargar int\Cargar Products a Int\stg Products"
@@ -13439,7 +13991,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -13473,7 +14027,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -13509,7 +14065,7 @@ FROM int_Billing_final;</property>
     design-time-name="Package\Cargar int\Cargar Time a Int">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="123,42"
           Id="Package\Cargar int\Cargar Time a Int\int Billing"
@@ -13553,7 +14109,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -13587,7 +14145,9 @@ FROM int_Billing_final;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -14271,45 +14831,89 @@ FROM int_Billing_final;</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="125,42"
-          Id="Package\Dims a DW\DW Time"
-          TopLeft="525.5,87.5" />
-        <NodeLayout
           Size="124,42"
           Id="Package\Dims a DW\dim Time"
           TopLeft="524.5,17.5" />
-        <NodeLayout
-          Size="153,42"
-          Id="Package\Dims a DW\DW Customers"
-          TopLeft="21.5,83.5" />
         <NodeLayout
           Size="130,42"
           Id="Package\Dims a DW\DW Billing"
           TopLeft="674.5,90.5" />
         <NodeLayout
-          Size="156,42"
-          Id="Package\Dims a DW\int_Billing_Final"
-          TopLeft="660.5,20.5" />
-        <NodeLayout
-          Size="155,42"
-          Id="Package\Dims a DW\DW Employees"
-          TopLeft="190.5,84.5" />
+          Size="153,42"
+          Id="Package\Dims a DW\DW Customers"
+          TopLeft="21.5,83.5" />
         <NodeLayout
           Size="144,42"
           Id="Package\Dims a DW\DW Products"
           TopLeft="362.5,85.5" />
         <NodeLayout
-          Size="153,42"
-          Id="Package\Dims a DW\dim Customers"
-          TopLeft="19.5,16.5" />
+          Size="143,42"
+          Id="Package\Dims a DW\dim Products"
+          TopLeft="362.5,16.5" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Dims a DW\DW Time"
+          TopLeft="525.5,87.5" />
         <NodeLayout
           Size="154,42"
           Id="Package\Dims a DW\dim Employees"
           TopLeft="188.5,16.5" />
         <NodeLayout
-          Size="143,42"
-          Id="Package\Dims a DW\dim Products"
-          TopLeft="362.5,16.5" />
+          Size="156,42"
+          Id="Package\Dims a DW\int_Billing_Final"
+          TopLeft="660.5,20.5" />
+        <NodeLayout
+          Size="153,42"
+          Id="Package\Dims a DW\dim Customers"
+          TopLeft="19.5,16.5" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Dims a DW\DW Employees"
+          TopLeft="190.5,84.5" />
+        <EdgeLayout
+          Id="Package\Dims a DW.Paths[Salida de origen de OLE DB2]"
+          TopLeft="434.25,58.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27"
+              Start="0,0"
+              End="0,19.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Dims a DW.Paths[Salida de origen de OLE DB1]"
+          TopLeft="266.75,58.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26"
+              Start="0,0"
+              End="0,18.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Dims a DW.Paths[Salida de origen de OLE DB]"
           TopLeft="97,58.5">
@@ -14376,79 +14980,9 @@ FROM int_Billing_final;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Dims a DW.Paths[Salida de origen de OLE DB2]"
-          TopLeft="434.25,58.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,27"
-              Start="0,0"
-              End="0,19.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,19.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Dims a DW.Paths[Salida de origen de OLE DB1]"
-          TopLeft="266.75,58.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,26"
-              Start="0,0"
-              End="0,18.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,18.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\DW Customers">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\DW Employees">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Dims a DW\dim Time">
     <Properties>
@@ -14476,46 +15010,7 @@ FROM int_Billing_final;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\DW Time">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\dim Products">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\int_Billing_Final">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Dims a DW\dim Employees">
+    design-time-name="Package\Dims a DW\DW Customers">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -14541,7 +15036,186 @@ FROM int_Billing_final;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\dim Products">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\DW Time">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\dim Employees">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\int_Billing_Final">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\Dims a DW\dim Customers">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Dims a DW\DW Employees">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Tabla Stock">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="127,42"
+          Id="Package\Tabla Stock\stg_Stock"
+          TopLeft="12.5,65.5" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Tabla Stock\Columna derivada"
+          TopLeft="280.5,81.5" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Tabla Stock\Stock_table a DW"
+          TopLeft="584.5,65.5" />
+        <EdgeLayout
+          Id="Package\Tabla Stock.Paths[Salida de origen de OLE DB]"
+          TopLeft="139.5,86.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="141,16"
+              Start="0,0"
+              End="133.5,16">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="66.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="66.5,0"
+                    Point2="70.5,0"
+                    Point3="70.5,4" />
+                  <mssgle:LineSegment
+                    End="70.5,12" />
+                  <mssgle:CubicBezierSegment
+                    Point1="70.5,12"
+                    Point2="70.5,16"
+                    Point3="74.5,16" />
+                  <mssgle:LineSegment
+                    End="133.5,16" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Tabla Stock.Paths[Salida de columna derivada]"
+          TopLeft="448.5,102.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="136,-16"
+              Start="0,0"
+              End="128.5,-16">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="64,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="64,0"
+                    Point2="68,0"
+                    Point3="68,-4" />
+                  <mssgle:LineSegment
+                    End="68,-12" />
+                  <mssgle:CubicBezierSegment
+                    Point1="68,-12"
+                    Point2="68,-16"
+                    Point3="72,-16" />
+                  <mssgle:LineSegment
+                    End="128.5,-16" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Tabla Stock\stg_Stock">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Tabla Stock\Stock_table a DW">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
