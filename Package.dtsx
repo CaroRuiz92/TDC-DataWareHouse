@@ -11,8 +11,8 @@
   DTS:LocaleID="11274"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="252"
-  DTS:VersionGUID="{07193880-D4C3-4CD0-8214-3C6A1BDA1117}">
+  DTS:VersionBuild="260"
+  DTS:VersionGUID="{87BC71B6-E4DA-45ED-BD86-C63F209EFE59}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -2561,7 +2561,7 @@ ORDER BY int_Billing.BILLING_ID;</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{FF99613B-42EC-4564-A426-23937ECCDD7A}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE [dbo].[stg_Billing]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Billing_MySQL]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_ClientesMay_W]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_ClientesMin_R]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Empleados]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Holidays]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Producto]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Regiones]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Stock]&#xA;GO&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="TRUNCATE TABLE [dbo].[stg_Billing]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Billing_details]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Billing_MySQL_excel]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Billing_MySQL]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_ClientesMay_W]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_ClientesMin_R]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Empleados]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Holidays]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Producto]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Regiones]&#xA;GO&#xA;TRUNCATE TABLE [dbo].[stg_Stock]&#xA;GO&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -2792,7 +2792,8 @@ ORDER BY int_Billing.BILLING_ID;</property>
 FROM stg_Billing
 UNION
 SELECT BILLING_ID, DATE, CUSTOMER_ID, EMPLOYEE_ID, PRODUCT_ID, QUANTITY, REGION
-FROM stg_Billing_MySQL;</property>
+FROM stg_Billing_MySQL
+WHERE billing_id IS NOT NULL;</property>
                     <property
                       dataType="System.String"
                       description="Variable que contiene el comando SQL para ejecutar."
@@ -6000,860 +6001,6 @@ WHERE date IS NOT NULL;</property>
               version="1">
               <components>
                 <component
-                  refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL"
-                  componentClassID="Microsoft.ExcelSource"
-                  contactInfo="Origen de Excel;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
-                  description="Origen de Excel"
-                  name="Billing detail MySQL"
-                  usesDispositions="true"
-                  version="1">
-                  <properties>
-                    <property
-                      dataType="System.Int32"
-                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
-                      name="CommandTimeout">0</property>
-                    <property
-                      dataType="System.String"
-                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                      name="OpenRowset">billing_detail$</property>
-                    <property
-                      dataType="System.String"
-                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                      name="OpenRowsetVariable"></property>
-                    <property
-                      dataType="System.String"
-                      description="Comando SQL para ejecutar."
-                      name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                    <property
-                      dataType="System.String"
-                      description="Variable que contiene el comando SQL para ejecutar."
-                      name="SqlCommandVariable"></property>
-                    <property
-                      dataType="System.Int32"
-                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
-                      name="AccessMode"
-                      typeConverter="AccessMode">0</property>
-                    <property
-                      dataType="System.String"
-                      description="La asignación de parámetros del comando SQL a variables."
-                      name="ParameterMapping"></property>
-                  </properties>
-                  <connections>
-                    <connection
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[Billing detail MySQL]"
-                      connectionManagerRefId="Package.ConnectionManagers[Billing detail MySQL]"
-                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
-                      name="OleDbConnection" />
-                  </connections>
-                  <outputs>
-                    <output
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel]"
-                      name="Salida de origen de Excel">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[BILLING_ID]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].ExternalColumns[BILLING_ID]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[BILLING_ID]"
-                          name="BILLING_ID"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[PRODUCT_ID]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].ExternalColumns[PRODUCT_ID]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[PRODUCT_ID]"
-                          name="PRODUCT_ID"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[QUANTITY]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].ExternalColumns[QUANTITY]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[QUANTITY]"
-                          name="QUANTITY"
-                          truncationRowDisposition="FailComponent" />
-                      </outputColumns>
-                      <externalMetadataColumns
-                        isUsed="True">
-                        <externalMetadataColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].ExternalColumns[BILLING_ID]"
-                          dataType="r8"
-                          name="BILLING_ID" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].ExternalColumns[PRODUCT_ID]"
-                          dataType="r8"
-                          name="PRODUCT_ID" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].ExternalColumns[QUANTITY]"
-                          dataType="r8"
-                          name="QUANTITY" />
-                      </externalMetadataColumns>
-                    </output>
-                    <output
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de error de origen de Excel]"
-                      isErrorOut="true"
-                      name="Salida de error de origen de Excel">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de error de origen de Excel].Columns[BILLING_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de error de origen de Excel].Columns[BILLING_ID]"
-                          name="BILLING_ID" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de error de origen de Excel].Columns[PRODUCT_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de error de origen de Excel].Columns[PRODUCT_ID]"
-                          name="PRODUCT_ID" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de error de origen de Excel].Columns[QUANTITY]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de error de origen de Excel].Columns[QUANTITY]"
-                          name="QUANTITY" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
-                          dataType="i4"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
-                          name="ErrorCode"
-                          specialFlags="1" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
-                          dataType="i4"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
-                          name="ErrorColumn"
-                          specialFlags="2" />
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-                <component
-                  refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL"
-                  componentClassID="Microsoft.ExcelSource"
-                  contactInfo="Origen de Excel;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
-                  description="Origen de Excel"
-                  name="Billing MySQL"
-                  usesDispositions="true"
-                  version="1">
-                  <properties>
-                    <property
-                      dataType="System.Int32"
-                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
-                      name="CommandTimeout">0</property>
-                    <property
-                      dataType="System.String"
-                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                      name="OpenRowset">billing$</property>
-                    <property
-                      dataType="System.String"
-                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
-                      name="OpenRowsetVariable"></property>
-                    <property
-                      dataType="System.String"
-                      description="Comando SQL para ejecutar."
-                      name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                    <property
-                      dataType="System.String"
-                      description="Variable que contiene el comando SQL para ejecutar."
-                      name="SqlCommandVariable"></property>
-                    <property
-                      dataType="System.Int32"
-                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
-                      name="AccessMode"
-                      typeConverter="AccessMode">0</property>
-                    <property
-                      dataType="System.String"
-                      description="La asignación de parámetros del comando SQL a variables."
-                      name="ParameterMapping"></property>
-                  </properties>
-                  <connections>
-                    <connection
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Connections[OleDbConnection]"
-                      connectionManagerID="Package.ConnectionManagers[Billing MySQL]"
-                      connectionManagerRefId="Package.ConnectionManagers[Billing MySQL]"
-                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
-                      name="OleDbConnection" />
-                  </connections>
-                  <outputs>
-                    <output
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel]"
-                      name="Salida de origen de Excel">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BILLING_ID]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[BILLING_ID]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BILLING_ID]"
-                          name="BILLING_ID"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[REGION]"
-                          dataType="wstr"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[REGION]"
-                          length="255"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[REGION]"
-                          name="REGION"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BRANCH_ID]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[BRANCH_ID]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BRANCH_ID]"
-                          name="BRANCH_ID"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[DATE]"
-                          dataType="date"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[DATE]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[DATE]"
-                          name="DATE"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[CUSTOMER_ID]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[CUSTOMER_ID]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[CUSTOMER_ID]"
-                          name="CUSTOMER_ID"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[EMPLOYEE_ID]"
-                          dataType="r8"
-                          errorOrTruncationOperation="Conversión"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[EMPLOYEE_ID]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[EMPLOYEE_ID]"
-                          name="EMPLOYEE_ID"
-                          truncationRowDisposition="FailComponent" />
-                      </outputColumns>
-                      <externalMetadataColumns
-                        isUsed="True">
-                        <externalMetadataColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[BILLING_ID]"
-                          dataType="r8"
-                          name="BILLING_ID" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[REGION]"
-                          dataType="wstr"
-                          length="255"
-                          name="REGION" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[BRANCH_ID]"
-                          dataType="r8"
-                          name="BRANCH_ID" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[DATE]"
-                          dataType="date"
-                          name="DATE" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[CUSTOMER_ID]"
-                          dataType="r8"
-                          name="CUSTOMER_ID" />
-                        <externalMetadataColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[EMPLOYEE_ID]"
-                          dataType="r8"
-                          name="EMPLOYEE_ID" />
-                      </externalMetadataColumns>
-                    </output>
-                    <output
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel]"
-                      isErrorOut="true"
-                      name="Salida de error de origen de Excel">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[BILLING_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[BILLING_ID]"
-                          name="BILLING_ID" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[REGION]"
-                          dataType="wstr"
-                          length="255"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[REGION]"
-                          name="REGION" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[BRANCH_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[BRANCH_ID]"
-                          name="BRANCH_ID" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[DATE]"
-                          dataType="date"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[DATE]"
-                          name="DATE" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[CUSTOMER_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[CUSTOMER_ID]"
-                          name="CUSTOMER_ID" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[EMPLOYEE_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[EMPLOYEE_ID]"
-                          name="EMPLOYEE_ID" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
-                          dataType="i4"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
-                          name="ErrorCode"
-                          specialFlags="1" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
-                          dataType="i4"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
-                          name="ErrorColumn"
-                          specialFlags="2" />
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-                <component
-                  refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar"
-                  componentClassID="Microsoft.Merge"
-                  contactInfo="Mezclar;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
-                  description="Combina las filas de varios flujos de datos ordenados en un solo flujo de datos ordenados. A diferencia de la combinación de mezcla, todas las filas fluyen hacia la salida. Por ejemplo, se combinan dos listas ordenadas de clientes en una sola lista ordenada. Si el orden no es importante, use la transformación Unión de todo. "
-                  name="Mezclar"
-                  version="1">
-                  <inputs>
-                    <input
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 1]"
-                      name="Entrada de Mezclar 1">
-                      <inputColumns>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 1].Columns[BILLING_ID]"
-                          cachedDataType="r8"
-                          cachedName="BILLING_ID"
-                          cachedSortKeyPosition="1"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[BILLING_ID]">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Id. de linaje de columna de salida"
-                              name="OutputColumnLineageID">#{Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[BILLING_ID]}</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 1].Columns[DATE]"
-                          cachedDataType="date"
-                          cachedName="DATE"
-                          cachedSortKeyPosition="2"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[DATE]">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Id. de linaje de columna de salida"
-                              name="OutputColumnLineageID">#{Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[DATE]}</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 1].Columns[CUSTOMER_ID]"
-                          cachedDataType="r8"
-                          cachedName="CUSTOMER_ID"
-                          cachedSortKeyPosition="3"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[CUSTOMER_ID]">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Id. de linaje de columna de salida"
-                              name="OutputColumnLineageID">#{Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[CUSTOMER_ID]}</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 1].Columns[EMPLOYEE_ID]"
-                          cachedDataType="r8"
-                          cachedName="EMPLOYEE_ID"
-                          cachedSortKeyPosition="4"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[EMPLOYEE_ID]">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Id. de linaje de columna de salida"
-                              name="OutputColumnLineageID">#{Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[EMPLOYEE_ID]}</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 1].Columns[REGION]"
-                          cachedDataType="wstr"
-                          cachedLength="255"
-                          cachedName="REGION"
-                          cachedSortKeyPosition="5"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[REGION]">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Id. de linaje de columna de salida"
-                              name="OutputColumnLineageID">#{Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[REGION]}</property>
-                          </properties>
-                        </inputColumn>
-                      </inputColumns>
-                      <externalMetadataColumns />
-                    </input>
-                    <input
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 2]"
-                      name="Entrada de Mezclar 2">
-                      <inputColumns>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 2].Columns[BILLING_ID]"
-                          cachedDataType="r8"
-                          cachedName="BILLING_ID"
-                          cachedSortKeyPosition="1"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Outputs[Salida de ordenación].Columns[BILLING_ID]">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Id. de linaje de columna de salida"
-                              name="OutputColumnLineageID">#{Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[BILLING_ID]}</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 2].Columns[PRODUCT_ID]"
-                          cachedDataType="r8"
-                          cachedName="PRODUCT_ID"
-                          cachedSortKeyPosition="2"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Outputs[Salida de ordenación].Columns[PRODUCT_ID]">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Id. de linaje de columna de salida"
-                              name="OutputColumnLineageID">#{Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[PRODUCT_ID]}</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 2].Columns[QUANTITY]"
-                          cachedDataType="r8"
-                          cachedName="QUANTITY"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Outputs[Salida de ordenación].Columns[QUANTITY]">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Id. de linaje de columna de salida"
-                              name="OutputColumnLineageID">#{Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[QUANTITY]}</property>
-                          </properties>
-                        </inputColumn>
-                      </inputColumns>
-                      <externalMetadataColumns />
-                    </input>
-                  </inputs>
-                  <outputs>
-                    <output
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1]"
-                      isSorted="true"
-                      name="Salida de Mezclar 1">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[BILLING_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[BILLING_ID]"
-                          name="BILLING_ID"
-                          sortKeyPosition="1" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[DATE]"
-                          dataType="date"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[DATE]"
-                          name="DATE" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[CUSTOMER_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[CUSTOMER_ID]"
-                          name="CUSTOMER_ID" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[EMPLOYEE_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[EMPLOYEE_ID]"
-                          name="EMPLOYEE_ID" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[REGION]"
-                          dataType="wstr"
-                          length="255"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[REGION]"
-                          name="REGION" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[PRODUCT_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[PRODUCT_ID]"
-                          name="PRODUCT_ID" />
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[QUANTITY]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[QUANTITY]"
-                          name="QUANTITY" />
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-                <component
-                  refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar"
-                  componentClassID="Microsoft.Sort"
-                  contactInfo="Ordenar;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
-                  description="Ordena los datos de entrada de manera ascendente o descendente cuando no es posible ordenarlos en su origen. Por ejemplo, se ordenan los datos de ventas por 'id. de cliente' antes de que se escriban en un archivo plano y se entreguen a otro departamento. Nota: no se recomienda realizar esta transformación para grandes flujos de datos."
-                  name="Ordenar"
-                  version="1">
-                  <properties>
-                    <property
-                      dataType="System.Boolean"
-                      description="Indica si la transformación Ordenar quita filas con valores de ordenación duplicados."
-                      name="EliminateDuplicates">false</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Especifica el número máximo de subprocesos que se deben usar para la ordenación."
-                      expressionType="Notify"
-                      name="MaximumThreads">-1</property>
-                  </properties>
-                  <inputs>
-                    <input
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Inputs[Entrada de ordenación]"
-                      name="Entrada de ordenación">
-                      <inputColumns>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Inputs[Entrada de ordenación].Columns[BILLING_ID]"
-                          cachedDataType="r8"
-                          cachedName="BILLING_ID"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BILLING_ID]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">1</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Inputs[Entrada de ordenación].Columns[REGION]"
-                          cachedDataType="wstr"
-                          cachedLength="255"
-                          cachedName="REGION"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[REGION]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">5</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Inputs[Entrada de ordenación].Columns[BRANCH_ID]"
-                          cachedDataType="r8"
-                          cachedName="BRANCH_ID"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BRANCH_ID]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">0</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Inputs[Entrada de ordenación].Columns[DATE]"
-                          cachedDataType="date"
-                          cachedName="DATE"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[DATE]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">2</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Inputs[Entrada de ordenación].Columns[CUSTOMER_ID]"
-                          cachedDataType="r8"
-                          cachedName="CUSTOMER_ID"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[CUSTOMER_ID]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">3</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Inputs[Entrada de ordenación].Columns[EMPLOYEE_ID]"
-                          cachedDataType="r8"
-                          cachedName="EMPLOYEE_ID"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[EMPLOYEE_ID]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">4</property>
-                          </properties>
-                        </inputColumn>
-                      </inputColumns>
-                      <externalMetadataColumns />
-                    </input>
-                  </inputs>
-                  <outputs>
-                    <output
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación]"
-                      isSorted="true"
-                      name="Salida de ordenación">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[BILLING_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[BILLING_ID]"
-                          name="BILLING_ID"
-                          sortKeyPosition="1">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BILLING_ID]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[REGION]"
-                          dataType="wstr"
-                          length="255"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[REGION]"
-                          name="REGION"
-                          sortKeyPosition="5">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[REGION]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[BRANCH_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[BRANCH_ID]"
-                          name="BRANCH_ID">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BRANCH_ID]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[DATE]"
-                          dataType="date"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[DATE]"
-                          name="DATE"
-                          sortKeyPosition="2">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[DATE]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[CUSTOMER_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[CUSTOMER_ID]"
-                          name="CUSTOMER_ID"
-                          sortKeyPosition="3">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[CUSTOMER_ID]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[EMPLOYEE_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación].Columns[EMPLOYEE_ID]"
-                          name="EMPLOYEE_ID"
-                          sortKeyPosition="4">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel].Columns[EMPLOYEE_ID]}</property>
-                          </properties>
-                        </outputColumn>
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-                <component
-                  refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1"
-                  componentClassID="Microsoft.Sort"
-                  contactInfo="Ordenar;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
-                  description="Ordena los datos de entrada de manera ascendente o descendente cuando no es posible ordenarlos en su origen. Por ejemplo, se ordenan los datos de ventas por 'id. de cliente' antes de que se escriban en un archivo plano y se entreguen a otro departamento. Nota: no se recomienda realizar esta transformación para grandes flujos de datos."
-                  name="Ordenar 1"
-                  version="1">
-                  <properties>
-                    <property
-                      dataType="System.Boolean"
-                      description="Indica si la transformación Ordenar quita filas con valores de ordenación duplicados."
-                      name="EliminateDuplicates">false</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Especifica el número máximo de subprocesos que se deben usar para la ordenación."
-                      expressionType="Notify"
-                      name="MaximumThreads">-1</property>
-                  </properties>
-                  <inputs>
-                    <input
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Inputs[Entrada de ordenación]"
-                      name="Entrada de ordenación">
-                      <inputColumns>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Inputs[Entrada de ordenación].Columns[BILLING_ID]"
-                          cachedDataType="r8"
-                          cachedName="BILLING_ID"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[BILLING_ID]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">1</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Inputs[Entrada de ordenación].Columns[PRODUCT_ID]"
-                          cachedDataType="r8"
-                          cachedName="PRODUCT_ID"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[PRODUCT_ID]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">2</property>
-                          </properties>
-                        </inputColumn>
-                        <inputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Inputs[Entrada de ordenación].Columns[QUANTITY]"
-                          cachedDataType="r8"
-                          cachedName="QUANTITY"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[QUANTITY]">
-                          <properties>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica las opciones de comparación para datos de caracteres."
-                              name="NewComparisonFlags">0</property>
-                            <property
-                              dataType="System.Int32"
-                              description="Especifica el criterio de ordenación de la columna."
-                              name="NewSortKeyPosition">0</property>
-                          </properties>
-                        </inputColumn>
-                      </inputColumns>
-                      <externalMetadataColumns />
-                    </input>
-                  </inputs>
-                  <outputs>
-                    <output
-                      refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Outputs[Salida de ordenación]"
-                      isSorted="true"
-                      name="Salida de ordenación">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Outputs[Salida de ordenación].Columns[BILLING_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Outputs[Salida de ordenación].Columns[BILLING_ID]"
-                          name="BILLING_ID"
-                          sortKeyPosition="1">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[BILLING_ID]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Outputs[Salida de ordenación].Columns[PRODUCT_ID]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Outputs[Salida de ordenación].Columns[PRODUCT_ID]"
-                          name="PRODUCT_ID"
-                          sortKeyPosition="2">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[PRODUCT_ID]}</property>
-                          </properties>
-                        </outputColumn>
-                        <outputColumn
-                          refId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Outputs[Salida de ordenación].Columns[QUANTITY]"
-                          dataType="r8"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Outputs[Salida de ordenación].Columns[QUANTITY]"
-                          name="QUANTITY">
-                          <properties>
-                            <property
-                              containsID="true"
-                              dataType="System.Int32"
-                              description="Especifica el identificador de linaje de la columna de entrada que está asociada a esta columna de salida."
-                              name="SortColumnId">#{Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel].Columns[QUANTITY]}</property>
-                          </properties>
-                        </outputColumn>
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-                <component
                   refId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL"
                   componentClassID="Microsoft.OLEDBDestination"
                   contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
@@ -6903,7 +6050,7 @@ WHERE date IS NOT NULL;</property>
                     <property
                       dataType="System.String"
                       description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
-                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                      name="FastLoadOptions">CHECK_CONSTRAINTS</property>
                     <property
                       dataType="System.Int32"
                       description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
@@ -6927,48 +6074,47 @@ WHERE date IS NOT NULL;</property>
                       <inputColumns>
                         <inputColumn
                           refId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].Columns[BILLING_ID]"
-                          cachedDataType="r8"
+                          cachedDataType="i4"
                           cachedName="BILLING_ID"
-                          cachedSortKeyPosition="1"
                           externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].ExternalColumns[BILLING_ID]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[BILLING_ID]" />
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[BILLING_ID]" />
                         <inputColumn
                           refId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].Columns[DATE]"
-                          cachedDataType="date"
+                          cachedDataType="dbTimeStamp"
                           cachedName="DATE"
                           externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].ExternalColumns[DATE]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[DATE]" />
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[DATE]" />
                         <inputColumn
                           refId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].Columns[CUSTOMER_ID]"
-                          cachedDataType="r8"
+                          cachedDataType="i4"
                           cachedName="CUSTOMER_ID"
                           externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].ExternalColumns[CUSTOMER_ID]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[CUSTOMER_ID]" />
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[CUSTOMER_ID]" />
                         <inputColumn
                           refId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].Columns[EMPLOYEE_ID]"
-                          cachedDataType="r8"
+                          cachedDataType="i4"
                           cachedName="EMPLOYEE_ID"
                           externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[EMPLOYEE_ID]" />
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]" />
                         <inputColumn
                           refId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].Columns[REGION]"
                           cachedDataType="wstr"
                           cachedLength="255"
                           cachedName="REGION"
                           externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].ExternalColumns[REGION]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[REGION]" />
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[REGION]" />
                         <inputColumn
                           refId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].Columns[PRODUCT_ID]"
-                          cachedDataType="r8"
+                          cachedDataType="i4"
                           cachedName="PRODUCT_ID"
                           externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].ExternalColumns[PRODUCT_ID]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[PRODUCT_ID]" />
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[PRODUCT_ID]" />
                         <inputColumn
                           refId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].Columns[QUANTITY]"
-                          cachedDataType="r8"
+                          cachedDataType="i4"
                           cachedName="QUANTITY"
                           externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB].ExternalColumns[QUANTITY]"
-                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1].Columns[QUANTITY]" />
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[QUANTITY]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -7029,33 +6175,235 @@ WHERE date IS NOT NULL;</property>
                     </output>
                   </outputs>
                 </component>
+                <component
+                  refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="Origen de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;7"
+                  description="Origen de OLE DB"
+                  name="Union Billings MySQL"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT bd.BILLING_ID, PRODUCT_ID, QUANTITY,
+REGION, DATE, CUSTOMER_ID, EMPLOYEE_ID
+FROM stg_Billing_MySQL_excel be
+FULL OUTER JOIN stg_Billing_details bd
+ON be.BILLING_ID = bd.BILLING_ID
+ORDER BY BILLING_ID;</property>
+                    <property
+                      dataType="System.String"
+                      description="Variable que contiene el comando SQL para ejecutar."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="Asignaciones entre los parámetros del comando SQL y las variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DELL-CARITO\MSSQLSERVER01.staging]"
+                      connectionManagerRefId="Package.ConnectionManagers[DELL-CARITO\MSSQLSERVER01.staging]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB]"
+                      name="Salida de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[BILLING_ID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[BILLING_ID]"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[BILLING_ID]"
+                          name="BILLING_ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[PRODUCT_ID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[PRODUCT_ID]"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[PRODUCT_ID]"
+                          name="PRODUCT_ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[QUANTITY]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[QUANTITY]"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[QUANTITY]"
+                          name="QUANTITY"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[REGION]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[REGION]"
+                          length="255"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[REGION]"
+                          name="REGION"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[DATE]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[DATE]"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[DATE]"
+                          name="DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[CUSTOMER_ID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[CUSTOMER_ID]"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[CUSTOMER_ID]"
+                          name="CUSTOMER_ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                          name="EMPLOYEE_ID"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[BILLING_ID]"
+                          dataType="i4"
+                          name="BILLING_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[PRODUCT_ID]"
+                          dataType="i4"
+                          name="PRODUCT_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[QUANTITY]"
+                          dataType="i4"
+                          name="QUANTITY" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[REGION]"
+                          dataType="wstr"
+                          length="255"
+                          name="REGION" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[DATE]"
+                          dataType="dbTimeStamp"
+                          name="DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[CUSTOMER_ID]"
+                          dataType="i4"
+                          name="CUSTOMER_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                          dataType="i4"
+                          name="EMPLOYEE_ID" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB]"
+                      isErrorOut="true"
+                      name="Salida de error de origen de OLE DB">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[BILLING_ID]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[BILLING_ID]"
+                          name="BILLING_ID" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[PRODUCT_ID]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[PRODUCT_ID]"
+                          name="PRODUCT_ID" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[QUANTITY]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[QUANTITY]"
+                          name="QUANTITY" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[REGION]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[REGION]"
+                          name="REGION" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[DATE]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[DATE]"
+                          name="DATE" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[CUSTOMER_ID]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[CUSTOMER_ID]"
+                          name="CUSTOMER_ID" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[EMPLOYEE_ID]"
+                          name="EMPLOYEE_ID" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de error de origen de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
               </components>
               <paths>
                 <path
-                  refId="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de Mezclar 1]"
+                  refId="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de origen de OLE DB]"
                   endId="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL.Inputs[Entrada de destino de OLE DB]"
-                  name="Salida de Mezclar 1"
-                  startId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Outputs[Salida de Mezclar 1]" />
-                <path
-                  refId="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de ordenación]"
-                  endId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 2]"
-                  name="Salida de ordenación"
-                  startId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Outputs[Salida de ordenación]" />
-                <path
-                  refId="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de ordenación1]"
-                  endId="Package\Cargar stg\Cargar Billing MySQL\Mezclar.Inputs[Entrada de Mezclar 1]"
-                  name="Salida de ordenación"
-                  startId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Outputs[Salida de ordenación]" />
-                <path
-                  refId="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de origen de Excel]"
-                  endId="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1.Inputs[Entrada de ordenación]"
-                  name="Salida de origen de Excel"
-                  startId="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL.Outputs[Salida de origen de Excel]" />
-                <path
-                  refId="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de origen de Excel1]"
-                  endId="Package\Cargar stg\Cargar Billing MySQL\Ordenar.Inputs[Entrada de ordenación]"
-                  name="Salida de origen de Excel"
-                  startId="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL.Outputs[Salida de origen de Excel]" />
+                  name="Salida de origen de OLE DB"
+                  startId="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL.Outputs[Salida de origen de OLE DB]" />
               </paths>
             </pipeline>
           </DTS:ObjectData>
@@ -7074,6 +6422,331 @@ WHERE date IS NOT NULL;</property>
             <pipeline
               version="1">
               <components>
+                <component
+                  refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL"
+                  componentClassID="Microsoft.ExcelSource"
+                  contactInfo="Origen de Excel;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+                  description="Origen de Excel"
+                  name="Billing MySQL"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">billing$</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="Variable que contiene el comando SQL para ejecutar."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="La asignación de parámetros del comando SQL a variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Billing MySQL]"
+                      connectionManagerRefId="Package.ConnectionManagers[Billing MySQL]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel]"
+                      name="Salida de origen de Excel">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BILLING_ID]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[BILLING_ID]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BILLING_ID]"
+                          name="BILLING_ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[REGION]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[REGION]"
+                          length="255"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[REGION]"
+                          name="REGION"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BRANCH_ID]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[BRANCH_ID]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BRANCH_ID]"
+                          name="BRANCH_ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[DATE]"
+                          dataType="date"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[DATE]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[DATE]"
+                          name="DATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[CUSTOMER_ID]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[CUSTOMER_ID]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[CUSTOMER_ID]"
+                          name="CUSTOMER_ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[EMPLOYEE_ID]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[EMPLOYEE_ID]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[EMPLOYEE_ID]"
+                          name="EMPLOYEE_ID"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[BILLING_ID]"
+                          dataType="r8"
+                          name="BILLING_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[REGION]"
+                          dataType="wstr"
+                          length="255"
+                          name="REGION" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[BRANCH_ID]"
+                          dataType="r8"
+                          name="BRANCH_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[DATE]"
+                          dataType="date"
+                          name="DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[CUSTOMER_ID]"
+                          dataType="r8"
+                          name="CUSTOMER_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].ExternalColumns[EMPLOYEE_ID]"
+                          dataType="r8"
+                          name="EMPLOYEE_ID" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel]"
+                      isErrorOut="true"
+                      name="Salida de error de origen de Excel">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[BILLING_ID]"
+                          dataType="r8"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[BILLING_ID]"
+                          name="BILLING_ID" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[REGION]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[REGION]"
+                          name="REGION" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[BRANCH_ID]"
+                          dataType="r8"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[BRANCH_ID]"
+                          name="BRANCH_ID" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[DATE]"
+                          dataType="date"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[DATE]"
+                          name="DATE" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[CUSTOMER_ID]"
+                          dataType="r8"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[CUSTOMER_ID]"
+                          name="CUSTOMER_ID" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[EMPLOYEE_ID]"
+                          dataType="r8"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[EMPLOYEE_ID]"
+                          name="EMPLOYEE_ID" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details"
+                  componentClassID="Microsoft.ExcelSource"
+                  contactInfo="Origen de Excel;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;1"
+                  description="Origen de Excel"
+                  name="Billing MySQL details"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">billing_detail$</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="Variable que contiene el comando SQL para ejecutar."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="La asignación de parámetros del comando SQL a variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Billing detail MySQL]"
+                      connectionManagerRefId="Package.ConnectionManagers[Billing detail MySQL]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel]"
+                      name="Salida de origen de Excel">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].Columns[BILLING_ID]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].ExternalColumns[BILLING_ID]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].Columns[BILLING_ID]"
+                          name="BILLING_ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].Columns[PRODUCT_ID]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].ExternalColumns[PRODUCT_ID]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].Columns[PRODUCT_ID]"
+                          name="PRODUCT_ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].Columns[QUANTITY]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversión"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].ExternalColumns[QUANTITY]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].Columns[QUANTITY]"
+                          name="QUANTITY"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].ExternalColumns[BILLING_ID]"
+                          dataType="r8"
+                          name="BILLING_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].ExternalColumns[PRODUCT_ID]"
+                          dataType="r8"
+                          name="PRODUCT_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].ExternalColumns[QUANTITY]"
+                          dataType="r8"
+                          name="QUANTITY" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de error de origen de Excel]"
+                      isErrorOut="true"
+                      name="Salida de error de origen de Excel">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de error de origen de Excel].Columns[BILLING_ID]"
+                          dataType="r8"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de error de origen de Excel].Columns[BILLING_ID]"
+                          name="BILLING_ID" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de error de origen de Excel].Columns[PRODUCT_ID]"
+                          dataType="r8"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de error de origen de Excel].Columns[PRODUCT_ID]"
+                          name="PRODUCT_ID" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de error de origen de Excel].Columns[QUANTITY]"
+                          dataType="r8"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de error de origen de Excel].Columns[QUANTITY]"
+                          name="QUANTITY" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de error de origen de Excel].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de error de origen de Excel].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
                 <component
                   refId="Package\Cargar stg\Cargar excels (Empl, Holid)\Employees"
                   componentClassID="Microsoft.ExcelSource"
@@ -8126,6 +7799,294 @@ WHERE date IS NOT NULL;</property>
                     </output>
                   </outputs>
                 </component>
+                <component
+                  refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino de OLE DB"
+                  name="stg_Billing_details"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[dbo].[stg_Billing_details]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadOptions">CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DELL-CARITO\MSSQLSERVER01.staging]"
+                      connectionManagerRefId="Package.ConnectionManagers[DELL-CARITO\MSSQLSERVER01.staging]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB]"
+                      errorOrTruncationOperation="Insertar"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de destino de OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB].Columns[BILLING_ID]"
+                          cachedDataType="r8"
+                          cachedName="BILLING_ID"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB].ExternalColumns[BILLING_ID]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].Columns[BILLING_ID]" />
+                        <inputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB].Columns[PRODUCT_ID]"
+                          cachedDataType="r8"
+                          cachedName="PRODUCT_ID"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB].ExternalColumns[PRODUCT_ID]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].Columns[PRODUCT_ID]" />
+                        <inputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB].Columns[QUANTITY]"
+                          cachedDataType="r8"
+                          cachedName="QUANTITY"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB].ExternalColumns[QUANTITY]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel].Columns[QUANTITY]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB].ExternalColumns[BILLING_ID]"
+                          dataType="i4"
+                          name="BILLING_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB].ExternalColumns[PRODUCT_ID]"
+                          dataType="i4"
+                          name="PRODUCT_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB].ExternalColumns[QUANTITY]"
+                          dataType="i4"
+                          name="QUANTITY" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Outputs[Salida de error de destino de OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salida de error de destino de OLE DB"
+                      synchronousInputId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="Destino de OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;4"
+                  description="Destino de OLE DB"
+                  name="stg_Billing_MySQL excel"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="Número de segundos antes de que se agote el tiempo de espera de un comando. Un valor de 0 indica un tiempo de espera infinito."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowset">[stg_Billing_MySQL_excel]</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica la variable que contiene el nombre del objeto de base de datos usado para abrir un conjunto de filas."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="Comando SQL para ejecutar."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica la página de códigos de columna para utilizar cuando la información de página de códigos no está disponible en el origen de datos."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Fuerza el uso del valor de la propiedad DefaultCodePage al describir datos de caracteres."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica el modo utilizado para obtener acceso a la base de datos."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si los valores proporcionados para columnas de identidad se van a copiar al destino. Si es False, los valores de las columnas de identidad se generan automáticamente en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indica si las columnas que contienen NULL tendrán NULL insertado en el destino. Si es False, las columnas que contienen NULL tendrán sus valores predeterminados insertados en el destino. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Especifica opciones para usar con la carga rápida. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadOptions">CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Especifica cuándo se emiten confirmaciones durante la inserción de datos. El valor 0 especifica que se emitirá una confirmación al final de la inserción de datos. Solo se aplica si está activada la carga rápida."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[DELL-CARITO\MSSQLSERVER01.staging]"
+                      connectionManagerRefId="Package.ConnectionManagers[DELL-CARITO\MSSQLSERVER01.staging]"
+                      description="La conexión de tiempo de ejecución OLE DB usada para obtener acceso a la base de datos."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB]"
+                      errorOrTruncationOperation="Insertar"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="Entrada de destino de OLE DB">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].Columns[BILLING_ID]"
+                          cachedDataType="r8"
+                          cachedName="BILLING_ID"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].ExternalColumns[BILLING_ID]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[BILLING_ID]" />
+                        <inputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].Columns[REGION]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="REGION"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].ExternalColumns[REGION]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[REGION]" />
+                        <inputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].Columns[DATE]"
+                          cachedDataType="date"
+                          cachedName="DATE"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].ExternalColumns[DATE]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[DATE]" />
+                        <inputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].Columns[CUSTOMER_ID]"
+                          cachedDataType="r8"
+                          cachedName="CUSTOMER_ID"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].ExternalColumns[CUSTOMER_ID]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[CUSTOMER_ID]" />
+                        <inputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].Columns[EMPLOYEE_ID]"
+                          cachedDataType="r8"
+                          cachedName="EMPLOYEE_ID"
+                          externalMetadataColumnId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel].Columns[EMPLOYEE_ID]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].ExternalColumns[BILLING_ID]"
+                          dataType="i4"
+                          name="BILLING_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].ExternalColumns[REGION]"
+                          dataType="wstr"
+                          length="255"
+                          name="REGION" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].ExternalColumns[DATE]"
+                          dataType="dbTimeStamp"
+                          name="DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].ExternalColumns[CUSTOMER_ID]"
+                          dataType="i4"
+                          name="CUSTOMER_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB].ExternalColumns[EMPLOYEE_ID]"
+                          dataType="i4"
+                          name="EMPLOYEE_ID" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Outputs[Salida de error de destino de OLE DB]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Salida de error de destino de OLE DB"
+                      synchronousInputId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Outputs[Salida de error de destino de OLE DB].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Outputs[Salida de error de destino de OLE DB].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
               </components>
               <paths>
                 <path
@@ -8138,6 +8099,16 @@ WHERE date IS NOT NULL;</property>
                   endId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg Holidays.Inputs[Entrada de destino de OLE DB]"
                   name="Salida de origen de Excel"
                   startId="Package\Cargar stg\Cargar excels (Empl, Holid)\Holidays.Outputs[Salida de origen de Excel]" />
+                <path
+                  refId="Package\Cargar stg\Cargar excels (Empl, Holid).Paths[Salida de origen de Excel2]"
+                  endId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel.Inputs[Entrada de destino de OLE DB]"
+                  name="Salida de origen de Excel"
+                  startId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL.Outputs[Salida de origen de Excel]" />
+                <path
+                  refId="Package\Cargar stg\Cargar excels (Empl, Holid).Paths[Salida de origen de Excel3]"
+                  endId="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details.Inputs[Entrada de destino de OLE DB]"
+                  name="Salida de origen de Excel"
+                  startId="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details.Outputs[Salida de origen de Excel]" />
               </paths>
             </pipeline>
           </DTS:ObjectData>
@@ -12815,19 +12786,19 @@ SELECT * FROM stg_Stock;</property>
           PanelSize="236,249"
           Size="236,292"
           Id="Package\Armar fact"
-          TopLeft="540.5,111.772727272727" />
+          TopLeft="565.5,111.772727272727" />
         <NodeLayout
           Size="157,42"
           Id="Package\Borrar dims DW"
-          TopLeft="573.5,431.5" />
+          TopLeft="598.5,431.5" />
         <NodeLayout
           Size="124,42"
           Id="Package\Borrar int"
-          TopLeft="312.5,22.5" />
+          TopLeft="337.5,22.5" />
         <NodeLayout
           Size="127,42"
           Id="Package\Borrar stg"
-          TopLeft="7.5,25.5" />
+          TopLeft="32.5,25.5" />
         <NodeLayout
           Size="169,42"
           Id="Package\Cargar int\Cargar Billing a Int"
@@ -12968,7 +12939,7 @@ SELECT * FROM stg_Stock;</property>
           PanelSize="247,411"
           Size="247,454"
           Id="Package\Cargar int"
-          TopLeft="270.5,113.5" />
+          TopLeft="295.5,113.5" />
         <NodeLayout
           Size="163,42"
           Id="Package\Cargar stg\Carga Billing Hist"
@@ -13083,14 +13054,18 @@ SELECT * FROM stg_Stock;</property>
           PanelSize="244,340"
           Size="244,383"
           Id="Package\Cargar stg"
-          TopLeft="0.5,113.5" />
+          TopLeft="25.5,113.5" />
         <NodeLayout
           Size="134,42"
           Id="Package\Dims a DW"
-          TopLeft="585.5,498.927272727272" />
+          TopLeft="610.5,498.927272727272" />
+        <NodeLayout
+          Size="137,42"
+          Id="Package\Tabla Stock"
+          TopLeft="611.5,567.5" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción]"
-          TopLeft="74.25,67.5">
+          TopLeft="99.25,67.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -13112,7 +13087,7 @@ SELECT * FROM stg_Stock;</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 1]"
-          TopLeft="161.833333333333,113.5">
+          TopLeft="186.833333333333,113.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -13146,7 +13121,7 @@ SELECT * FROM stg_Stock;</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 2]"
-          TopLeft="393.916666666667,64.5">
+          TopLeft="418.916666666667,64.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -13168,13 +13143,13 @@ SELECT * FROM stg_Stock;</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 3]"
-          TopLeft="517.5,340.5">
+          TopLeft="542.5,340.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="23,-82.7272727272727"
+              EndConnector="23,-82.727272727273"
               Start="0,0"
-              End="15.5,-82.7272727272727">
+              End="15.5,-82.727272727273">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -13185,13 +13160,13 @@ SELECT * FROM stg_Stock;</property>
                     Point2="11.5,0"
                     Point3="11.5,-4" />
                   <mssgle:LineSegment
-                    End="11.5,-78.7272727272727" />
+                    End="11.5,-78.727272727273" />
                   <mssgle:CubicBezierSegment
-                    Point1="11.5,-78.7272727272727"
-                    Point2="11.5,-82.7272727272727"
-                    Point3="15.5,-82.7272727272727" />
+                    Point1="11.5,-78.727272727273"
+                    Point2="11.5,-82.727272727273"
+                    Point3="15.5,-82.727272727273" />
                   <mssgle:LineSegment
-                    End="15.5,-82.7272727272727" />
+                    End="15.5,-82.727272727273" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -13202,7 +13177,7 @@ SELECT * FROM stg_Stock;</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 4]"
-          TopLeft="655.25,403.772727272727">
+          TopLeft="680.25,403.772727272727">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -13224,7 +13199,7 @@ SELECT * FROM stg_Stock;</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 5]"
-          TopLeft="652.25,473.5">
+          TopLeft="677.25,473.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -13244,13 +13219,9 @@ SELECT * FROM stg_Stock;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="137,42"
-          Id="Package\Tabla Stock"
-          TopLeft="586.5,567.5" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Restricción 6]"
-          TopLeft="653.75,540.927272727272">
+          TopLeft="678.75,540.927272727272">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -13640,7 +13611,7 @@ SELECT * FROM stg_Stock;</property>
     design-time-name="Package\Cargar int\Cargar Billing a Int">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="147,42"
           Id="Package\Cargar int\Cargar Billing a Int\stg Billing unif"
@@ -13668,9 +13639,7 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -14183,7 +14152,7 @@ SELECT * FROM stg_Stock;</property>
     design-time-name="Package\Cargar stg\Carga Billing Hist">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="148,42"
           Id="Package\Cargar stg\Carga Billing Hist\Stg Hist Sales"
@@ -14211,9 +14180,7 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -14249,204 +14216,40 @@ SELECT * FROM stg_Stock;</property>
     design-time-name="Package\Cargar stg\Cargar Billing MySQL">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="128,42"
-          Id="Package\Cargar stg\Cargar Billing MySQL\Ordenar 1"
-          TopLeft="236.5,106.5" />
-        <NodeLayout
-          Size="119,42"
-          Id="Package\Cargar stg\Cargar Billing MySQL\Ordenar"
-          TopLeft="225.5,7.5" />
-        <NodeLayout
-          Size="148,42"
-          Id="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL"
-          TopLeft="5.5,5.5" />
-        <NodeLayout
-          Size="118,42"
-          Id="Package\Cargar stg\Cargar Billing MySQL\Mezclar"
-          TopLeft="417.5,53.5" />
-        <NodeLayout
-          Size="178,42"
-          Id="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL"
-          TopLeft="10.5,104.5" />
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="166,42"
           Id="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL"
-          TopLeft="389.5,170.5" />
+          TopLeft="368.5,29.5" />
+        <NodeLayout
+          Size="185,42"
+          Id="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL"
+          TopLeft="20.5,30.5" />
         <EdgeLayout
-          Id="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de ordenación]"
-          TopLeft="364.5,127.5">
+          Id="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de origen de OLE DB]"
+          TopLeft="205.5,51">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="53,-47.3333333333333"
+              EndConnector="163,0"
               Start="0,0"
-              End="45.5,-47.3333333333333">
+              End="155.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="26.6330275229358,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="26.6330275229358,0"
-                    Point2="30.6330275229358,0"
-                    Point3="30.6330275229358,-4" />
-                  <mssgle:LineSegment
-                    End="30.6330275229358,-43.3333333333333" />
-                  <mssgle:CubicBezierSegment
-                    Point1="30.6330275229358,-43.3333333333333"
-                    Point2="30.6330275229358,-47.3333333333333"
-                    Point3="34.6330275229358,-47.3333333333333" />
-                  <mssgle:LineSegment
-                    End="45.5,-47.3333333333333" />
+                    End="155.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de Mezclar 1]"
-          TopLeft="474.5,95.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,75"
-              Start="0,0"
-              End="0,67.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,67.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de origen de Excel1]"
-          TopLeft="153.5,27.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="72,0"
-              Start="0,0"
-              End="64.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="64.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de origen de Excel]"
-          TopLeft="188.5,126.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="48,0"
-              Start="0,0"
-              End="40.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="40.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Cargar stg\Cargar Billing MySQL.Paths[Salida de ordenación1]"
-          TopLeft="344.5,28.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="73,46"
-              Start="0,0"
-              End="65.5,46">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="32.5,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="32.5,0"
-                    Point2="36.5,0"
-                    Point3="36.5,4" />
-                  <mssgle:LineSegment
-                    End="36.5,42" />
-                  <mssgle:CubicBezierSegment
-                    Point1="36.5,42"
-                    Point2="36.5,46"
-                    Point3="40.5,46" />
-                  <mssgle:LineSegment
-                    End="65.5,46" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Cargar stg\Cargar Billing MySQL\Billing MySQL">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Cargar stg\Cargar Billing MySQL\Billing detail MySQL">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Cargar stg\Cargar Billing MySQL\stg Billing MySQL">
     <Properties>
@@ -14464,7 +14267,7 @@ SELECT * FROM stg_Stock;</property>
     design-time-name="Package\Cargar stg\Cargar excels (Empl, Holid)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="139,42"
           Id="Package\Cargar stg\Cargar excels (Empl, Holid)\stg Holidays"
@@ -14500,9 +14303,7 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -14524,9 +14325,67 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="148,42"
+          Id="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL"
+          TopLeft="38.5,203.5" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details"
+          TopLeft="43.5,283.5" />
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel"
+          TopLeft="287.5,204.5" />
+        <EdgeLayout
+          Id="Package\Cargar stg\Cargar excels (Empl, Holid).Paths[Salida de origen de Excel2]"
+          TopLeft="186.5,225">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="101,0"
+              Start="0,0"
+              End="93.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="93.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details"
+          TopLeft="304.5,286.5" />
+        <EdgeLayout
+          Id="Package\Cargar stg\Cargar excels (Empl, Holid).Paths[Salida de origen de Excel3]"
+          TopLeft="226.5,306">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="78,0"
+              Start="0,0"
+              End="70.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="70.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -14588,7 +14447,7 @@ SELECT * FROM stg_Stock;</property>
     design-time-name="Package\Cargar stg\Cargar txts (Prod, Reg, Stock)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="140,42"
           Id="Package\Cargar stg\Cargar txts (Prod, Reg, Stock)\stg Products"
@@ -14632,9 +14491,7 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -14656,9 +14513,7 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -14680,9 +14535,7 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -14829,7 +14682,7 @@ SELECT * FROM stg_Stock;</property>
     design-time-name="Package\Dims a DW">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="124,42"
           Id="Package\Dims a DW\dim Time"
@@ -14889,7 +14742,9 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -14911,7 +14766,9 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -14933,7 +14790,9 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -14955,7 +14814,9 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -14977,7 +14838,9 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -15117,7 +14980,11 @@ SELECT * FROM stg_Stock;</property>
     design-time-name="Package\Tabla Stock">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Tabla Stock\Stock_table a DW"
+          TopLeft="584.5,65.5" />
         <NodeLayout
           Size="127,42"
           Id="Package\Tabla Stock\stg_Stock"
@@ -15126,10 +14993,6 @@ SELECT * FROM stg_Stock;</property>
           Size="168,42"
           Id="Package\Tabla Stock\Columna derivada"
           TopLeft="280.5,81.5" />
-        <NodeLayout
-          Size="167,42"
-          Id="Package\Tabla Stock\Stock_table a DW"
-          TopLeft="584.5,65.5" />
         <EdgeLayout
           Id="Package\Tabla Stock.Paths[Salida de origen de OLE DB]"
           TopLeft="139.5,86.5">
@@ -15161,7 +15024,9 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -15195,12 +15060,27 @@ SELECT * FROM stg_Stock;</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Tabla Stock\Stock_table a DW">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Tabla Stock\stg_Stock">
     <Properties>
@@ -15215,7 +15095,7 @@ SELECT * FROM stg_Stock;</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Tabla Stock\Stock_table a DW">
+    design-time-name="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -15224,6 +15104,53 @@ SELECT * FROM stg_Stock;</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar stg\Cargar excels (Empl, Holid)\Billing MySQL details">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_MySQL excel">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar stg\Cargar excels (Empl, Holid)\stg_Billing_details">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar stg\Cargar Billing MySQL\Union Billings MySQL">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
