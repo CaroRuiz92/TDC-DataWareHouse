@@ -22,10 +22,3 @@ El objetivo principal de este proyecto es diseñar e implementar un data warehou
 - **Visual Studio con SQL Server Integration Services (SSIS)**: Para el desarrollo de los procesos ETL y la gestión del proyecto.
 - **Microsoft SQL Server Management Studio (SSMS)**: Para la administración y consulta de la base de datos.
 
-## Cómo Ejecutar el Proyecto
-
-1. **Clonar el Repositorio**:
-
-   ```bash
-   git clone https://github.com/CaroRuiz92/TDC-DataWareHouse.git
-   cd TDC-DataWareHouse
